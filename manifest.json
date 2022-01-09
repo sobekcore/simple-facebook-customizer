@@ -1,7 +1,7 @@
 {
   "name": "Hide Facebook Sidebars",
   "description": "Customize Facebook by hiding sidebars",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "manifest_version": 3,
   "permissions": [
     "storage",
@@ -10,7 +10,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "run_at": "document_end",
+      "run_at": "document_start",
       "js": ["scripts/content.js"]
     }
   ],

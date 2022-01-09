@@ -9,33 +9,39 @@ const defineInitialValues = (overwrite, element) => {
   }
 };
 
-let stylesheet = document.createElement("style");
-stylesheet.setAttribute("type", "text/css");
-document.head.appendChild(stylesheet);
-stylesheet = stylesheet.sheet;
+let frame = window.requestAnimationFrame(() => {
+  // Cancel first encountered browser frame in order to wait for the
+  // dom to render the <head> tag needed for the rest of the script.
+  window.cancelAnimationFrame(frame);
 
-stylesheet.insertRule(`${RIGHT_BAR_SELECTOR} {
-  transition: ease-in-out 0.25s all, ease-in 0.15s opacity !important;
-  margin-left: 0;
-  opacity: 100;
-}`);
+  let stylesheet = document.createElement("style");
+  stylesheet.setAttribute("type", "text/css");
+  document.head.appendChild(stylesheet);
+  stylesheet = stylesheet.sheet;
 
-let [ overwrite ] = stylesheet.cssRules;
+  stylesheet.insertRule(`${RIGHT_BAR_SELECTOR} {
+    transition: ease-in-out 0.25s all, ease-in 0.15s opacity !important;
+    margin-left: 0;
+    opacity: 100;
+  }`);
 
-chrome.storage.local.get("barsAreHidden", (storage) => {
-  if (storage.barsAreHidden) {
-    overwrite.style["opacity"] = "0";
-    overwrite.style["margin-left"] = "-360px";
-  } else {
-    defineInitialValues(overwrite, "rightBarElement");
-  }
-});
+  let [ overwrite ] = stylesheet.cssRules;
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.hide) {
-    overwrite.style["opacity"] = "0";
-    overwrite.style["margin-left"] = "-360px";
-  } else {
-    defineInitialValues(overwrite, "rightBarElement");
-  }
+  chrome.storage.local.get("rightSidebarHidden", (storage) => {
+    if (storage.rightSidebarHidden) {
+      overwrite.style["opacity"] = "0";
+      overwrite.style["margin-left"] = "-360px";
+    } else {
+      defineInitialValues(overwrite, "rightBarElement");
+    }
+  });
+
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.hide) {
+      overwrite.style["opacity"] = "0";
+      overwrite.style["margin-left"] = "-360px";
+    } else {
+      defineInitialValues(overwrite, "rightBarElement");
+    }
+  });
 });

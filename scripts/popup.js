@@ -1,20 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
   const rightSidebar = document.querySelector("#hide-right-sidebar");
-  let barsAreHidden = false;
+  let rightSidebarHidden = false;
 
-  chrome.storage.local.get("barsAreHidden", (storage) => {
-    barsAreHidden = storage.barsAreHidden;
-    rightSidebar.checked = barsAreHidden;
+  chrome.storage.local.get("rightSidebarHidden", (storage) => {
+    rightSidebarHidden = storage.rightSidebarHidden
+    rightSidebar.checked = rightSidebarHidden;
 
     let event = new Event("change");
     event.loadDataOnly = true;
-    bothBars.dispatchEvent(event);
+    rightSidebar.dispatchEvent(event);
   });
 
   rightSidebar.addEventListener("change", (event) => {
     if (!event.loadDataOnly) {
-      barsAreHidden = !barsAreHidden;
-      chrome.storage.local.set({ "barsAreHidden": barsAreHidden });
+      rightSidebarHidden = !rightSidebarHidden;
+      chrome.storage.local.set({ "rightSidebarHidden": rightSidebarHidden });
     }
 
     const params = {
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     chrome.tabs.query(params, (tabs) => {
       const [ currentTab ] = tabs;
-      const message = { event: event, hide: barsAreHidden };
+      const message = { event: event, hide: rightSidebarHidden };
       chrome.tabs.sendMessage(currentTab.id, message);
     });
   })
