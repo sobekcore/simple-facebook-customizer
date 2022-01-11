@@ -5,11 +5,57 @@
   </head>
   <body>
     <main class="extension">
-      <h1 class="extension-title">Hide Facebook Sidebars</h1>
-      <p>Here you can toggle between hiding and showing your Facebook sidebars.</p>
-      <label for="hide-right-sidebar">Hide Right Sidebar</label>
-      <input type="checkbox" id="hide-right-sidebar" />
-      <script src="../scripts/popup.js"></script>
+      <article class="extension-settings">
+        <section class="extension-setting">
+          <h2 class="extension-setting-title">Right Sidebar</h2>
+
+          <div class="extension-setting-option">
+            <label for="right-sidebar" class="extension-setting-label">Hide Right Sidebar</label>
+            <div class="extension-setting-toggle">
+              <div class="extension-setting-toggle-cover">
+                <div class="extenstion-setting-toggle-switch"></div>
+              </div>
+              <input type="checkbox" class="extension-setting-toggle-input" id="right-sidebar" />
+            </div>
+          </div>
+
+          <div class="extension-setting-option">
+            <label for="right-margin" class="extension-setting-label">Disable Right Margin</label>
+            <div class="extension-setting-toggle">
+              <div class="extension-setting-toggle-cover">
+                <div class="extenstion-setting-toggle-switch"></div>
+              </div>
+              <input type="checkbox" class="extension-setting-toggle-input" id="right-margin" disabled />
+            </div>
+          </div>
+        </section>
+
+        <section class="extension-setting">
+          <h2 class="extension-setting-title">Left Sidebar</h2>
+
+          <div class="extension-setting-option">
+            <label for="left-sidebar" class="extension-setting-label">Hide Left Sidebar</label>
+            <div class="extension-setting-toggle">
+              <div class="extension-setting-toggle-cover">
+                <div class="extenstion-setting-toggle-switch"></div>
+              </div>
+              <input type="checkbox" class="extension-setting-toggle-input" id="left-sidebar" />
+            </div>
+          </div>
+
+          <div class="extension-setting-option">
+            <label for="left-margin" class="extension-setting-label">Disable Left Margin</label>
+            <div class="extension-setting-toggle">
+              <div class="extension-setting-toggle-cover">
+                <div class="extenstion-setting-toggle-switch"></div>
+              </div>
+              <input type="checkbox" class="extension-setting-toggle-input" id="left-margin" disabled />
+            </div>
+          </div>
+        </section>
+      </article>
     </main>
+
+    <script src="../scripts/popup.js"></script>
   </body>
 </html>

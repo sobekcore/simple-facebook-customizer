@@ -1,7 +1,98 @@
+:root {
+  /* Toggle */
+  --toggle-switch-color: #ffffff;
+  --toggle-secondary-color: #c8c8c8;
+  --toggle-border-radius: 26px;
+  --toggle-height: 24px;
+  --toggle-width: 48px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
 .extension {
-  width: 250px;
+  width: 100%;
 }
 
 .extension-title {
   margin-top: 0;
+}
+
+.extension-settings {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  white-space: nowrap;
+  padding: 10px 0;
+  row-gap: 15px;
+}
+
+.extension-setting {
+  padding: 0 12px;
+}
+
+.extension-setting-title {
+  margin: 0 0 6px;
+}
+
+.extension-setting-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
+  padding: 2px 0;
+}
+
+.extension-setting-label {
+  pointer-events: none;
+}
+
+.extension-setting-toggle {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  z-index: 1;
+}
+
+.extension-setting-toggle[data-disabled="true"] {
+  filter: brightness(85%) opacity(35%);
+}
+
+.extension-setting-toggle[data-disabled="true"] .extension-setting-toggle-input {
+  cursor: not-allowed;
+}
+
+.extension-setting-toggle-input {
+  position: absolute;
+  transform: translate(calc(var(--toggle-height) * -1), calc(var(--toggle-height) * -1));
+  border-radius: var(--toggle-border-radius);
+  height: var(--toggle-height);
+  width: var(--toggle-width);
+  cursor: pointer;
+  margin: 0;
+  opacity: 0;
+}
+
+.extension-setting-toggle-cover {
+  background: var(--toggle-secondary-color);
+  border: 2px solid var(--toggle-secondary-color);
+  border-radius: var(--toggle-border-radius);
+  height: var(--toggle-height);
+  width: var(--toggle-width);
+  padding: 2px 3px;
+  transition: 0.18s ease;
+}
+
+.extenstion-setting-toggle-switch {
+  background: var(--toggle-switch-color);
+  border-radius: var(--toggle-border-radius);
+  height: calc(var(--toggle-height) * (2 / 3));
+  width: calc(var(--toggle-height) * (2 / 3));
+  margin-left: 0px;
+  transition: 0.12s ease;
 }
