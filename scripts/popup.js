@@ -11,17 +11,6 @@
  */
 const options = [
   {
-    name: "rightSidebar",
-    element: document.querySelector("#right-sidebar"),
-    value: false,
-    triggers: ["rightMargin"],
-  },
-  {
-    name: "rightMargin",
-    element: document.querySelector("#right-margin"),
-    value: false,
-  },
-  {
     name: "leftSidebar",
     element: document.querySelector("#left-sidebar"),
     value: false,
@@ -30,6 +19,17 @@ const options = [
   {
     name: "leftMargin",
     element: document.querySelector("#left-margin"),
+    value: false,
+  },
+  {
+    name: "rightSidebar",
+    element: document.querySelector("#right-sidebar"),
+    value: false,
+    triggers: ["rightMargin"],
+  },
+  {
+    name: "rightMargin",
+    element: document.querySelector("#right-margin"),
     value: false,
   },
 ];
@@ -57,12 +57,12 @@ const visualizeToggles = (element, loadDataOnly = false) => {
 
   if (element.checked) {
     toggleSwitch.style["margin-left"] = "22px";
-    cover.style["border-color"] = "#3f51b5"
-    cover.style["background"] = "#3f51b5"
+    cover.style["border-color"] = "var(--branding-color)";
+    cover.style["background"] = "var(--branding-color)";
   } else {
     toggleSwitch.style["margin-left"] = "0";
-    cover.style["border-color"] = "#c8c8c8";
-    cover.style["background"] = "#c8c8c8";
+    cover.style["border-color"] = "var(--toggle-secondary-color)";
+    cover.style["background"] = "var(--toggle-secondary-color)";
   }
 };
 

@@ -1,37 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="../styles/popup.css" />
+    <title>Hide Facebook Sidebars</title>
+    <link rel="stylesheet" href="/styles/popup.css" />
   </head>
   <body>
     <main class="extension">
       <article class="extension-settings">
         <section class="extension-setting">
-          <h2 class="extension-setting-title">Right Sidebar</h2>
-
-          <div class="extension-setting-option">
-            <label for="right-sidebar" class="extension-setting-label">Hide Right Sidebar</label>
-            <div class="extension-setting-toggle">
-              <div class="extension-setting-toggle-cover">
-                <div class="extenstion-setting-toggle-switch"></div>
-              </div>
-              <input type="checkbox" class="extension-setting-toggle-input" id="right-sidebar" />
-            </div>
-          </div>
-
-          <div class="extension-setting-option">
-            <label for="right-margin" class="extension-setting-label">Disable Right Margin</label>
-            <div class="extension-setting-toggle">
-              <div class="extension-setting-toggle-cover">
-                <div class="extenstion-setting-toggle-switch"></div>
-              </div>
-              <input type="checkbox" class="extension-setting-toggle-input" id="right-margin" disabled />
-            </div>
-          </div>
-        </section>
-
-        <section class="extension-setting">
           <h2 class="extension-setting-title">Left Sidebar</h2>
+
+          <div role="separator" class="extension-setting-separator"></div>
 
           <div class="extension-setting-option">
             <label for="left-sidebar" class="extension-setting-label">Hide Left Sidebar</label>
@@ -43,6 +22,8 @@
             </div>
           </div>
 
+          <div role="separator" class="extension-setting-separator"></div>
+
           <div class="extension-setting-option">
             <label for="left-margin" class="extension-setting-label">Disable Left Margin</label>
             <div class="extension-setting-toggle">
@@ -53,9 +34,37 @@
             </div>
           </div>
         </section>
+
+        <section class="extension-setting">
+          <h2 class="extension-setting-title">Right Sidebar</h2>
+
+          <div role="separator" class="extension-setting-separator"></div>
+
+          <div class="extension-setting-option">
+            <label for="right-sidebar" class="extension-setting-label">Hide Right Sidebar</label>
+            <div class="extension-setting-toggle">
+              <div class="extension-setting-toggle-cover">
+                <div class="extenstion-setting-toggle-switch"></div>
+              </div>
+              <input type="checkbox" class="extension-setting-toggle-input" id="right-sidebar" />
+            </div>
+          </div>
+
+          <div role="separator" class="extension-setting-separator"></div>
+
+          <div class="extension-setting-option">
+            <label for="right-margin" class="extension-setting-label">Disable Right Margin</label>
+            <div class="extension-setting-toggle">
+              <div class="extension-setting-toggle-cover">
+                <div class="extenstion-setting-toggle-switch"></div>
+              </div>
+              <input type="checkbox" class="extension-setting-toggle-input" id="right-margin" disabled />
+            </div>
+          </div>
+        </section>
       </article>
     </main>
 
-    <script src="../scripts/popup.js"></script>
+    <script src="/scripts/popup.js"></script>
   </body>
 </html>

@@ -9,20 +9,20 @@
  */
 const options = [
   {
-    name: "rightSidebar",
-    selector: config.RIGHT_BAR_SELECTOR,
-  },
-  {
-    name: "rightMargin",
-    selector: config.RIGHT_BAR_SELECTOR,
-  },
-  {
     name: "leftSidebar",
     selector: config.LEFT_BAR_SELECTOR,
   },
   {
     name: "leftMargin",
     selector: config.LEFT_BAR_SELECTOR,
+  },
+  {
+    name: "rightSidebar",
+    selector: config.RIGHT_BAR_SELECTOR,
+  },
+  {
+    name: "rightMargin",
+    selector: config.RIGHT_BAR_SELECTOR,
   }
 ];
 
@@ -34,19 +34,19 @@ const options = [
  */
 const defineOptionValues = (overwrite, element, value = false) => {
   switch (element) {
-    case "rightSidebar":
-      overwrite.style["opacity"] = value ? "0" : "100";
-      overwrite.style["visibility"] = value ? "hidden" : "initial";
-      break;
-    case "rightMargin":
-      overwrite.style["min-width"] = value ? "0" : "280px";
-      overwrite.style["flex-basis"] = value ? "0" : "360px";
-      break;
     case "leftSidebar":
       overwrite.style["opacity"] = value ? "0" : "100";
       overwrite.style["visibility"] = value ? "hidden" : "initial";
       break;
     case "leftMargin":
+      overwrite.style["min-width"] = value ? "0" : "280px";
+      overwrite.style["flex-basis"] = value ? "0" : "360px";
+      break;
+    case "rightSidebar":
+      overwrite.style["opacity"] = value ? "0" : "100";
+      overwrite.style["visibility"] = value ? "hidden" : "initial";
+      break;
+    case "rightMargin":
       overwrite.style["min-width"] = value ? "0" : "280px";
       overwrite.style["flex-basis"] = value ? "0" : "360px";
       break;
@@ -75,7 +75,6 @@ const initializeContentScript = () => {
       }`);
 
       let [ overwrite ] = stylesheet.cssRules;
-      console.log(typeof overwrite);
       overwrites[option.name] = overwrite;
 
       chrome.storage.local.get(option.name, (storage) => {
