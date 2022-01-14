@@ -55,5 +55,6 @@ body {
 .extension-setting-label {
   color: var(--secondary-text-color);
   pointer-events: none;
+  font-weight: bold;
   font-size: 13px;
 }

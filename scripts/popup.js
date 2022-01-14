@@ -3,7 +3,7 @@
  * @property {string} name
  * @property {HTMLElement} element
  * @property {boolean} value
- * @property {Array<string>} triggers
+ * @property {Array<string>} [triggers]
  */
 
 /**
@@ -11,24 +11,29 @@
  */
 const options = [
   {
-    name: "leftSidebar",
-    element: document.querySelector("#left-sidebar"),
+    name: config.DARK_MODE_SETTING,
+    element: document.querySelector("#dark-mode"),
     value: false,
-    triggers: ["leftMargin"],
   },
   {
-    name: "leftMargin",
+    name: config.LEFT_SIDEBAR_SETTING,
+    element: document.querySelector("#left-sidebar"),
+    value: false,
+    triggers: [config.LEFT_MARGIN_SETTING],
+  },
+  {
+    name: config.LEFT_MARGIN_SETTING,
     element: document.querySelector("#left-margin"),
     value: false,
   },
   {
-    name: "rightSidebar",
+    name: config.RIGHT_SIDEBAR_SETTING,
     element: document.querySelector("#right-sidebar"),
     value: false,
-    triggers: ["rightMargin"],
+    triggers: [config.RIGHT_MARGIN_SETTING],
   },
   {
-    name: "rightMargin",
+    name: config.RIGHT_MARGIN_SETTING,
     element: document.querySelector("#right-margin"),
     value: false,
   },
@@ -56,7 +61,7 @@ const visualizeToggles = (element, loadDataOnly = false) => {
   }
 
   if (element.checked) {
-    toggleSwitch.style["margin-left"] = "22px";
+    toggleSwitch.style["margin-left"] = "var(--toggle-height)";
     cover.style["border-color"] = "var(--branding-color)";
     cover.style["background"] = "var(--branding-color)";
   } else {

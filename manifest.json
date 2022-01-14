@@ -1,8 +1,8 @@
 {
-  "name": "Hide Facebook Sidebars",
-  "description": "Customize Facebook by hiding sidebars",
+  "name": "Simple Facebook Customizer",
+  "description": "Customize Facebook with a set of predefined settings",
   "manifest_version": 3,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "permissions": ["storage"],
   "content_scripts": [
     {
@@ -16,6 +16,6 @@
   ],
   "action": {
     "default_popup": "templates/popup.html",
-    "default_title": "Hide Facebook Sidebars"
+    "default_title": "Simple Facebook Customizer"
   }
 }

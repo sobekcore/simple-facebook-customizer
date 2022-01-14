@@ -26,19 +26,18 @@
 
 .extension-setting-toggle-cover {
   background: var(--toggle-secondary-color);
-  border: 2px solid var(--toggle-secondary-color);
   border-radius: var(--toggle-border-radius);
+  padding: var(--toggle-padding);
   height: var(--toggle-height);
   width: var(--toggle-width);
-  padding: 2px 3px;
   transition: 0.18s ease;
 }
 
 .extenstion-setting-toggle-switch {
   background: var(--toggle-switch-color);
   border-radius: var(--toggle-border-radius);
-  height: calc(var(--toggle-height) * (2 / 3));
-  width: calc(var(--toggle-height) * (2 / 3));
+  height: calc(var(--toggle-height) - (var(--toggle-padding) * 2));
+  width: calc(var(--toggle-height) - (var(--toggle-padding) * 2));
   margin-left: 0px;
   transition: 0.12s ease;
 }

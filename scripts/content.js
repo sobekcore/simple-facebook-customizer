@@ -2,6 +2,7 @@
  * @typedef {Object} Option
  * @property {string} name
  * @property {string} selector
+ * @property {boolean} animate
  */
 
 /**
@@ -9,20 +10,29 @@
  */
 const options = [
   {
-    name: "leftSidebar",
+    name: config.DARK_MODE_SETTING,
+    selector: config.DOCUMENT_ROOT_SELECTOR,
+    animate: false,
+  },
+  {
+    name: config.LEFT_SIDEBAR_SETTING,
     selector: config.LEFT_BAR_SELECTOR,
+    animate: true,
   },
   {
-    name: "leftMargin",
+    name: config.LEFT_MARGIN_SETTING,
     selector: config.LEFT_BAR_SELECTOR,
+    animate: true,
   },
   {
-    name: "rightSidebar",
+    name: config.RIGHT_SIDEBAR_SETTING,
     selector: config.RIGHT_BAR_SELECTOR,
+    animate: true,
   },
   {
-    name: "rightMargin",
+    name: config.RIGHT_MARGIN_SETTING,
     selector: config.RIGHT_BAR_SELECTOR,
+    animate: true,
   }
 ];
 
@@ -34,6 +44,9 @@ const options = [
  */
 const defineOptionValues = (overwrite, element, value = false) => {
   switch (element) {
+    case "darkMode":
+      overwrite.style["color-scheme"] = value ? "dark" : "normal";
+      break;
     case "leftSidebar":
       overwrite.style["opacity"] = value ? "0" : "100";
       overwrite.style["visibility"] = value ? "hidden" : "initial";
@@ -70,9 +83,8 @@ const initializeContentScript = () => {
     let overwrites = {};
 
     for (let option of options) {
-      stylesheet.insertRule(`${option.selector} {
-        transition: ease-in-out 0.25s all, ease-in 0.15s opacity !important;
-      }`);
+      let additionalRules = option.animate ? config.ANIMATION_CSS_RULES : "";
+      stylesheet.insertRule(`${option.selector} {${additionalRules}}`);
 
       let [ overwrite ] = stylesheet.cssRules;
       overwrites[option.name] = overwrite;

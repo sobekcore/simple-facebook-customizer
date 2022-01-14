@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hide Facebook Sidebars</title>
+    <title>Simple Facebook Customizer</title>
     <link rel="stylesheet" href="/styles/popup.css" />
+    <script src="/scripts/config.js"></script>
   </head>
   <body>
     <main class="extension">
       <article class="extension-settings">
+        <section class="extension-setting">
+          <h2 class="extension-setting-title">General Settings</h2>
+
+          <div role="separator" class="extension-setting-separator"></div>
+
+          <div class="extension-setting-option">
+            <label for="left-sidebar" class="extension-setting-label">Improve Dark Mode</label>
+            <div class="extension-setting-toggle">
+              <div class="extension-setting-toggle-cover">
+                <div class="extenstion-setting-toggle-switch"></div>
+              </div>
+              <input type="checkbox" class="extension-setting-toggle-input" id="dark-mode" />
+            </div>
+          </div>
+        </section>
+
         <section class="extension-setting">
           <h2 class="extension-setting-title">Left Sidebar</h2>
 
