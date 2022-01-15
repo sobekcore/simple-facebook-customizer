@@ -1,10 +1,20 @@
 /**
+ * @typedef {string|number} Enum
+ */
+
+/**
  * Editable config that holds all the data that might once change.
  *
- * @param {string} DOCUMENT_ROOT_SELECTOR Highest hierarchy selector of current document
- * @param {string} LEFT_BAR_SELECTOR Left Facebook sidebar with your profile, shortcuts etc.
- * @param {string} RIGHT_BAR_SELECTOR Right Facebook sidebar with your contacts and sponsored ads
- * @param {string} ANIMATION_CSS_RULES CSS Rules that define how all the animations executed by an app behave
+ * @property {string} DOCUMENT_ROOT_SELECTOR Highest hierarchy selector of current document
+ * @property {string} LEFT_BAR_SELECTOR Left Facebook sidebar with your profile, shortcuts etc.
+ * @property {string} RIGHT_BAR_SELECTOR Right Facebook sidebar with your contacts and sponsored ads
+ * @property {string} ANIMATION_CSS_RULES CSS Rules that define how all the animations executed by an app behave
+ *
+ * @property {Enum} DARK_MODE_SETTING Enhances dark mode by enabling color-scheme dark on the document
+ * @property {Enum} LEFT_SIDEBAR_SETTING Smoothly hides left Facebook sidebar
+ * @property {Enum} LEFT_MARGIN_SETTING Removes margin from the left Facebook sidebar
+ * @property {Enum} RIGHT_SIDEBAR_SETTING Smoothly hides right Facebook sidebar
+ * @property {Enum} RIGHT_MARGIN_SETTING Removes margin from the right Facebook sidebar
  */
 const config = {
   DOCUMENT_ROOT_SELECTOR: ":root",

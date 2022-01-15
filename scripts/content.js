@@ -1,12 +1,16 @@
 /**
- * @typedef {Object} Option
+ * @namespace Content
+ */
+
+/**
+ * @typedef {Object} Content.Option
  * @property {string} name
  * @property {string} selector
  * @property {boolean} animate
  */
 
 /**
- * @type {Array<Option>}
+ * @type {Array<Content.Option>}
  */
 const options = [
   {

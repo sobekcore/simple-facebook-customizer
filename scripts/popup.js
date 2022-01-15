@@ -1,5 +1,9 @@
 /**
- * @typedef {Object} Option
+ * @namespace Popup
+ */
+
+/**
+ * @typedef {Object} Popup.Option
  * @property {string} name
  * @property {HTMLElement} element
  * @property {boolean} value
@@ -7,7 +11,7 @@
  */
 
 /**
- * @type {Array<Option>}
+ * @type {Array<Popup.Option>}
  */
 const options = [
   {
@@ -40,6 +44,15 @@ const options = [
 ];
 
 /**
+ * Constant that defines a small delay for a script. This fixes a unnecessary
+ * animation launches when there is a condition race between transitions.
+ *
+ * @type {number}
+ * @constant
+ */
+const animationFixDelay = 20;
+
+/**
  * @param {HTMLElement} toTriggerElement
  * @param {boolean} optionElement
  * @returns {void}
@@ -52,12 +65,12 @@ const visualizeToggles = (element, loadDataOnly = false) => {
     cover.style["transition"] = "none";
     toggleSwitch.style["transition"] = "none";
 
-    // Remove inline transitions after next browser tick, this
-    // brings back original transitions from the extension stylesheet.
+    // Remove inline transitions after a small timeout, this brings
+    // back original animations from the extension stylesheet.
     setTimeout(() => {
       cover.style["transition"] = null;
       toggleSwitch.style["transition"] = null;
-    });
+    }, animationFixDelay);
   }
 
   if (element.checked) {
@@ -126,7 +139,7 @@ const initializePopupSettings = () => {
         for (let trigger of option.triggers) {
           let toTrigger = options.find((option) => option.name === trigger);
           let unchecked = triggerDependent(toTrigger.element, option.element);
-          if (unchecked) timeout = 20;
+          if (unchecked) timeout = animationFixDelay;
         }
       }
 
