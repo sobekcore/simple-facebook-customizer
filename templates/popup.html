@@ -7,6 +7,13 @@
   </head>
   <body>
     <main class="extension">
+      <header class="extension-header">
+        <input class="extension-search" id="extension-search" placeholder="Type to search settings" />
+        <label for="extension-search" class="extension-search-placeholder">
+          <img class="extension-search-icon" src="/assets/search.svg" />
+          <span class="extension-search-label">Type to search settings...</span>
+        </label>
+      </header>
       <article class="extension-settings">
         <section class="extension-setting">
           <h2 class="extension-setting-title">General Settings</h2>
@@ -83,5 +90,6 @@
     </main>
 
     <script src="/scripts/popup.js"></script>
+    <script src="/scripts/search.js"></script>
   </body>
 </html>
