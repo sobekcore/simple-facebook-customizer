@@ -6,8 +6,8 @@
  * @typedef {Object} Popup.Option
  * @property {string} name
  * @property {HTMLElement} element
- * @property {boolean} value
  * @property {Array<string>} [triggers]
+ * @property {boolean} [value]
  */
 
 /**
@@ -16,30 +16,37 @@
 const options = [
   {
     name: config.DARK_MODE_SETTING,
-    element: document.querySelector("#dark-mode"),
-    value: false,
+    element: document.querySelector("#dark-mode-enchance"),
+  },
+  {
+    name: config.CONTENT_STORIES_SETTING,
+    element: document.querySelector("#content-stories-hide"),
+  },
+  {
+    name: config.CONTENT_CREATE_ROOM_SETTING,
+    element: document.querySelector("#content-create-room"),
   },
   {
     name: config.LEFT_SIDEBAR_SETTING,
-    element: document.querySelector("#left-sidebar"),
-    value: false,
+    element: document.querySelector("#left-sidebar-hide"),
     triggers: [config.LEFT_MARGIN_SETTING],
   },
   {
     name: config.LEFT_MARGIN_SETTING,
-    element: document.querySelector("#left-margin"),
-    value: false,
+    element: document.querySelector("#left-sidebar-margin"),
+  },
+  {
+    name: config.RIGHT_SIDEBAR_SPONSORED_SETTING,
+    element: document.querySelector("#right-sidebar-sponsored"),
   },
   {
     name: config.RIGHT_SIDEBAR_SETTING,
-    element: document.querySelector("#right-sidebar"),
-    value: false,
+    element: document.querySelector("#right-sidebar-hide"),
     triggers: [config.RIGHT_MARGIN_SETTING],
   },
   {
     name: config.RIGHT_MARGIN_SETTING,
-    element: document.querySelector("#right-margin"),
-    value: false,
+    element: document.querySelector("#right-sidebar-margin"),
   },
 ];
 
@@ -115,6 +122,9 @@ const triggerDependent = (toTriggerElement, optionElement) => {
  */
 const initializePopupSettings = () => {
   for (let option of options) {
+    // Set initial setting value at false
+    option.value = false;
+
     chrome.storage.local.get(option.name, (storage) => {
       option.value = storage[option.name];
       option.element.checked = option.value;

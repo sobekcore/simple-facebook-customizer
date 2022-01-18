@@ -6,7 +6,7 @@
  * @typedef {Object} Content.Option
  * @property {string} name
  * @property {string} selector
- * @property {boolean} animate
+ * @property {string} [rules]
  */
 
 /**
@@ -16,28 +16,40 @@ const options = [
   {
     name: config.DARK_MODE_SETTING,
     selector: config.DOCUMENT_ROOT_SELECTOR,
-    animate: false,
+  },
+  {
+    name: config.CONTENT_STORIES_SETTING,
+    selector: config.CONTENT_STORIES_SELECTOR,
+  },
+  {
+    name: config.CONTENT_CREATE_ROOM_SETTING,
+    selector: config.CONTENT_CREATE_ROOM_SELECTOR,
+    rules: config.ANIMATION_CSS_RULES,
   },
   {
     name: config.LEFT_SIDEBAR_SETTING,
     selector: config.LEFT_BAR_SELECTOR,
-    animate: true,
+    rules: config.ANIMATION_CSS_RULES,
   },
   {
     name: config.LEFT_MARGIN_SETTING,
     selector: config.LEFT_BAR_SELECTOR,
-    animate: true,
+    rules: config.ANIMATION_CSS_RULES,
+  },
+  {
+    name: config.RIGHT_SIDEBAR_SPONSORED_SETTING,
+    selector: config.RIGHT_BAR_SPONSORED_SELECTOR,
   },
   {
     name: config.RIGHT_SIDEBAR_SETTING,
     selector: config.RIGHT_BAR_SELECTOR,
-    animate: true,
+    rules: config.ANIMATION_CSS_RULES,
   },
   {
     name: config.RIGHT_MARGIN_SETTING,
     selector: config.RIGHT_BAR_SELECTOR,
-    animate: true,
-  }
+    rules: config.ANIMATION_CSS_RULES
+  },
 ];
 
 /**
@@ -48,22 +60,31 @@ const options = [
  */
 const defineOptionValues = (overwrite, element, value = false) => {
   switch (element) {
-    case "darkMode":
+    case config.DARK_MODE_SETTING:
       overwrite.style["color-scheme"] = value ? "dark" : "normal";
       break;
-    case "leftSidebar":
+    case config.CONTENT_STORIES_SETTING:
+      overwrite.style["display"] = value ? "none" : "block";
+      break;
+    case config.CONTENT_CREATE_ROOM_SETTING:
+      overwrite.style["display"] = value ? "none" : "block";
+      break;
+    case config.LEFT_SIDEBAR_SETTING:
       overwrite.style["opacity"] = value ? "0" : "100";
       overwrite.style["visibility"] = value ? "hidden" : "initial";
       break;
-    case "leftMargin":
+    case config.LEFT_MARGIN_SETTING:
       overwrite.style["min-width"] = value ? "0" : "280px";
       overwrite.style["flex-basis"] = value ? "0" : "360px";
       break;
-    case "rightSidebar":
+    case config.RIGHT_SIDEBAR_SPONSORED_SETTING:
+      overwrite.style["display"] = value ? "none" : "block";
+      break;
+    case config.RIGHT_SIDEBAR_SETTING:
       overwrite.style["opacity"] = value ? "0" : "100";
       overwrite.style["visibility"] = value ? "hidden" : "initial";
       break;
-    case "rightMargin":
+    case config.RIGHT_MARGIN_SETTING:
       overwrite.style["min-width"] = value ? "0" : "280px";
       overwrite.style["flex-basis"] = value ? "0" : "360px";
       break;
@@ -87,7 +108,7 @@ const initializeContentScript = () => {
     let overwrites = {};
 
     for (let option of options) {
-      let additionalRules = option.animate ? config.ANIMATION_CSS_RULES : "";
+      let additionalRules = option.rules ? option.rules : "";
       stylesheet.insertRule(`${option.selector} {${additionalRules}}`);
 
       let [ overwrite ] = stylesheet.cssRules;

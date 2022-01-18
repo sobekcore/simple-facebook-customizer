@@ -48,13 +48,18 @@ body {
   position: absolute;
   display: inline-flex;
   align-items: center;
+  user-select: none;
   margin-left: 12px;
   column-gap: 6px;
   cursor: text;
 }
 
+.extension-search-icon {
+  -webkit-user-drag: none;
+}
+
 .extension-search-label {
-  color: #606770;
+  color: var(--placeholder-text-color);
   cursor: text;
 }
 
@@ -89,9 +94,10 @@ body {
 }
 
 .extension-setting-title {
-  color: var(--primary-text-color);
-  margin: 0 0 6px;
   font-size: 17px;
+  color: var(--primary-text-color);
+  padding-bottom: 2px;
+  margin: 0;
 }
 
 .extension-setting-option {
@@ -99,6 +105,7 @@ body {
   justify-content: space-between;
   align-items: center;
   column-gap: 15px;
+  min-height: 34px;
   padding: 2px 0;
 }
 
