@@ -1,56 +1,11 @@
-/**
- * @namespace Content
- */
+import { config, options } from "~/extension.config";
 
 /**
- * @typedef {Object} Content.Option
+ * @typedef {Object} Option
  * @property {string} name
  * @property {string} selector
  * @property {string} [rules]
  */
-
-/**
- * @type {Array<Content.Option>}
- */
-const options = [
-  {
-    name: config.DARK_MODE_SETTING,
-    selector: config.DOCUMENT_ROOT_SELECTOR,
-  },
-  {
-    name: config.CONTENT_STORIES_SETTING,
-    selector: config.CONTENT_STORIES_SELECTOR,
-  },
-  {
-    name: config.CONTENT_CREATE_ROOM_SETTING,
-    selector: config.CONTENT_CREATE_ROOM_SELECTOR,
-    rules: config.ANIMATION_CSS_RULES,
-  },
-  {
-    name: config.LEFT_SIDEBAR_SETTING,
-    selector: config.LEFT_BAR_SELECTOR,
-    rules: config.ANIMATION_CSS_RULES,
-  },
-  {
-    name: config.LEFT_MARGIN_SETTING,
-    selector: config.LEFT_BAR_SELECTOR,
-    rules: config.ANIMATION_CSS_RULES,
-  },
-  {
-    name: config.RIGHT_SIDEBAR_SPONSORED_SETTING,
-    selector: config.RIGHT_BAR_SPONSORED_SELECTOR,
-  },
-  {
-    name: config.RIGHT_SIDEBAR_SETTING,
-    selector: config.RIGHT_BAR_SELECTOR,
-    rules: config.ANIMATION_CSS_RULES,
-  },
-  {
-    name: config.RIGHT_MARGIN_SETTING,
-    selector: config.RIGHT_BAR_SELECTOR,
-    rules: config.ANIMATION_CSS_RULES
-  },
-];
 
 /**
  * @param {CSSRuleList} overwrite
@@ -126,5 +81,4 @@ const initializeContentScript = () => {
   });
 };
 
-// Content script entry point
 initializeContentScript();

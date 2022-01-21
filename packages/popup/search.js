@@ -33,5 +33,6 @@ const searchSettingsFromInput = () => {
   });
 };
 
-// Search script entry point
-searchSettingsFromInput();
+export {
+  searchSettingsFromInput
+};

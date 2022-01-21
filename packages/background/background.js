@@ -26,5 +26,4 @@ const listenForIconAcivation = () => {
   });
 };
 
-// Background script entry point
 listenForIconAcivation();

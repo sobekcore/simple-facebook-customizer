@@ -1,54 +1,5 @@
-/**
- * @namespace Popup
- */
-
-/**
- * @typedef {Object} Popup.Option
- * @property {string} name
- * @property {HTMLElement} element
- * @property {Array<string>} [triggers]
- * @property {boolean} [value]
- */
-
-/**
- * @type {Array<Popup.Option>}
- */
-const options = [
-  {
-    name: config.DARK_MODE_SETTING,
-    element: document.querySelector("#dark-mode-enchance"),
-  },
-  {
-    name: config.CONTENT_STORIES_SETTING,
-    element: document.querySelector("#content-stories-hide"),
-  },
-  {
-    name: config.CONTENT_CREATE_ROOM_SETTING,
-    element: document.querySelector("#content-create-room"),
-  },
-  {
-    name: config.LEFT_SIDEBAR_SETTING,
-    element: document.querySelector("#left-sidebar-hide"),
-    triggers: [config.LEFT_MARGIN_SETTING],
-  },
-  {
-    name: config.LEFT_MARGIN_SETTING,
-    element: document.querySelector("#left-sidebar-margin"),
-  },
-  {
-    name: config.RIGHT_SIDEBAR_SPONSORED_SETTING,
-    element: document.querySelector("#right-sidebar-sponsored"),
-  },
-  {
-    name: config.RIGHT_SIDEBAR_SETTING,
-    element: document.querySelector("#right-sidebar-hide"),
-    triggers: [config.RIGHT_MARGIN_SETTING],
-  },
-  {
-    name: config.RIGHT_MARGIN_SETTING,
-    element: document.querySelector("#right-sidebar-margin"),
-  },
-];
+import { options } from "~/extension.config";
+import { searchSettingsFromInput } from "popup/search";
 
 /**
  * Constant that defines a small delay for a script. This fixes a unnecessary
@@ -106,7 +57,7 @@ const triggerDependent = (toTriggerElement, optionElement) => {
     toTriggerElement.checked = false;
 
     let changeEvent = new Event("change");
-    changeEvent.target = optionElement;
+    changeEvent.customTarget = optionElement;
 
     visualizeToggles(toTriggerElement);
     toTriggerElement.dispatchEvent(changeEvent);
@@ -122,7 +73,7 @@ const triggerDependent = (toTriggerElement, optionElement) => {
  */
 const initializePopupSettings = () => {
   for (let option of options) {
-    // Set initial setting value at false
+    option.element = document.querySelector(option.element);
     option.value = false;
 
     chrome.storage.local.get(option.name, (storage) => {
@@ -130,7 +81,7 @@ const initializePopupSettings = () => {
       option.element.checked = option.value;
 
       let changeEvent = new Event("change");
-      changeEvent.target = option.element;
+      changeEvent.customTarget = option.element;
       changeEvent.loadDataOnly = true;
 
       visualizeToggles(option.element, true);
@@ -142,7 +93,8 @@ const initializePopupSettings = () => {
     });
 
     option.element.addEventListener("change", (event) => {
-      const option = options.find((option) => option.element === event.target);
+      const target = event.target ? event.target : event.customTarget;
+      const option = options.find((option) => option.element === target);
       let timeout = 0;
 
       if (option.triggers) {
@@ -179,5 +131,5 @@ const initializePopupSettings = () => {
   }
 };
 
-// Popup script entry point
 initializePopupSettings();
+searchSettingsFromInput();
