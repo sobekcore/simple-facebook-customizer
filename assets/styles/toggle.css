@@ -33,7 +33,7 @@
   transition: 0.18s ease;
 }
 
-.extenstion-setting-toggle-switch {
+.extension-setting-toggle-switch {
   background: var(--toggle-switch-color);
   border-radius: var(--toggle-border-radius);
   height: calc(var(--toggle-height) - (var(--toggle-padding) * 2));

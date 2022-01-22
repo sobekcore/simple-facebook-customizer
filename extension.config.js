@@ -3,12 +3,18 @@
  *
  * @typedef {string|number} Enum
  *
+ * @typedef {Object} Section
+ * @property {string} title
+ * @property {Array<Option>} settings
+ *
  * @typedef {Object} Option
- * @property {string} name
+ * @property {string} label
+ * @property {string} id
+ * @property {Setting} name
  * @property {string} selector
- * @property {string|HTMLElement} element
  * @property {string} [rules]
- * @property {Array<string>} [triggers]
+ * @property {Array<Setting>} [triggers]
+ * @property {HTMLElement} [element]
  * @property {boolean} [value]
  */
 
@@ -59,52 +65,80 @@ const config = {
  * @type {Array<Option>}
  */
 const options = [
+	{
+		title: "General Settings",
+		settings: [
+		  {
+		    label: "Improve Dark Mode",
+		    id: "dark-mode-enchance",
+		    name: config.DARK_MODE_SETTING,
+		    selector: config.DOCUMENT_ROOT_SELECTOR,
+		  }
+		],
+	},
+	{
+		title: "Content Section",
+		settings: [
+		  {
+		    label: "Hide Stories cards",
+		    id: "content-stories-hide",
+		    name: config.CONTENT_STORIES_SETTING,
+		    selector: config.CONTENT_STORIES_SELECTOR,
+		    rules: config.ANIMATION_CSS_RULES,
+		  },
+		  {
+		    label: "Hide Create Room banner",
+		    id: "content-create-room",
+		    name: config.CONTENT_CREATE_ROOM_SETTING,
+		    selector: config.CONTENT_CREATE_ROOM_SELECTOR,
+		  },
+		],
+	},
   {
-    name: config.DARK_MODE_SETTING,
-    selector: config.DOCUMENT_ROOT_SELECTOR,
-    element: "#dark-mode-enchance",
+    title: "Left Sidebar",
+    settings: [
+      {
+        label: "Hide Left Sidebar",
+        id: "left-sidebar-hide",
+        name: config.LEFT_SIDEBAR_SETTING,
+        selector: config.LEFT_BAR_SELECTOR,
+        rules: config.ANIMATION_CSS_RULES,
+        triggers: [config.LEFT_MARGIN_SETTING],
+      },
+      {
+        label: "Disable Left Sidebar margin",
+        id: "left-sidebar-margin",
+        name: config.LEFT_MARGIN_SETTING,
+        selector: config.LEFT_BAR_SELECTOR,
+        rules: config.ANIMATION_CSS_RULES,
+      },
+    ],
   },
   {
-    name: config.CONTENT_STORIES_SETTING,
-    selector: config.CONTENT_STORIES_SELECTOR,
-    element: "#content-stories-hide",
-    rules: config.ANIMATION_CSS_RULES,
-  },
-  {
-    name: config.CONTENT_CREATE_ROOM_SETTING,
-    selector: config.CONTENT_CREATE_ROOM_SELECTOR,
-    element: "#content-create-room",
-  },
-  {
-    name: config.LEFT_SIDEBAR_SETTING,
-    selector: config.LEFT_BAR_SELECTOR,
-    element: "#left-sidebar-hide",
-    rules: config.ANIMATION_CSS_RULES,
-    triggers: [config.LEFT_MARGIN_SETTING],
-  },
-  {
-    name: config.LEFT_MARGIN_SETTING,
-    selector: config.LEFT_BAR_SELECTOR,
-    element: "#left-sidebar-margin",
-    rules: config.ANIMATION_CSS_RULES,
-  },
-  {
-    name: config.RIGHT_SIDEBAR_SPONSORED_SETTING,
-    selector: config.RIGHT_BAR_SPONSORED_SELECTOR,
-    element: "#right-sidebar-sponsored",
-  },
-  {
-    name: config.RIGHT_SIDEBAR_SETTING,
-    selector: config.RIGHT_BAR_SELECTOR,
-    element: "#right-sidebar-hide",
-    rules: config.ANIMATION_CSS_RULES,
-    triggers: [config.RIGHT_MARGIN_SETTING],
-  },
-  {
-    name: config.RIGHT_MARGIN_SETTING,
-    selector: config.RIGHT_BAR_SELECTOR,
-    element: "#right-sidebar-margin",
-    rules: config.ANIMATION_CSS_RULES,
+    title: "Right Sidebar",
+    settings: [
+      {
+        label: "Hide Right Sidebar sponsored ads",
+        id: "right-sidebar-sponsored",
+        name: config.RIGHT_SIDEBAR_SPONSORED_SETTING,
+        selector: config.RIGHT_BAR_SPONSORED_SELECTOR,
+      },
+      {
+        label: "Hide Right Sidebar",
+        id: "right-sidebar-hide",
+        name: config.RIGHT_SIDEBAR_SETTING,
+        selector: config.RIGHT_BAR_SELECTOR,
+        rules: config.ANIMATION_CSS_RULES,
+        triggers: [config.RIGHT_MARGIN_SETTING],
+      },
+      {
+        label: "Disable Right Sidebar margin",
+        id: "right-sidebar-margin",
+        name: config.RIGHT_MARGIN_SETTING,
+        selector: config.RIGHT_BAR_SELECTOR,
+        rules: config.ANIMATION_CSS_RULES,
+      },
+    ],
   },
 ];
 

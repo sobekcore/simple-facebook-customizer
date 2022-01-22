@@ -1,13 +1,6 @@
 import { config, options } from "~/extension.config";
 
 /**
- * @typedef {Object} Option
- * @property {string} name
- * @property {string} selector
- * @property {string} [rules]
- */
-
-/**
  * @param {CSSRuleList} overwrite
  * @param {string} element
  * @param {boolean} value
@@ -62,16 +55,18 @@ const initializeContentScript = () => {
 
     let overwrites = {};
 
-    for (let option of options) {
-      let additionalRules = option.rules ? option.rules : "";
-      stylesheet.insertRule(`${option.selector} {${additionalRules}}`);
+    for (let section of options) {
+      for (let option of section.settings) {
+        let additionalRules = option.rules ? option.rules : "";
+        stylesheet.insertRule(`${option.selector} {${additionalRules}}`);
 
-      let [ overwrite ] = stylesheet.cssRules;
-      overwrites[option.name] = overwrite;
+        let [ overwrite ] = stylesheet.cssRules;
+        overwrites[option.name] = overwrite;
 
-      chrome.storage.local.get(option.name, (storage) => {
-        defineOptionValues(overwrite, option.name, storage[option.name] ? true : false);
-      });
+        chrome.storage.local.get(option.name, (storage) => {
+          defineOptionValues(overwrite, option.name, storage[option.name] ? true : false);
+        });
+      }
     }
 
     chrome.runtime.onMessage.addListener((message) => {
