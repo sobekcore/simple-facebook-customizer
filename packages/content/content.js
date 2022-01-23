@@ -1,43 +1,5 @@
-import { config, options } from "~/extension.config";
-
-/**
- * @param {CSSRuleList} overwrite
- * @param {string} element
- * @param {boolean} value
- * @returns {void}
- */
-const defineOptionValues = (overwrite, element, value = false) => {
-  switch (element) {
-    case config.DARK_MODE_SETTING:
-      overwrite.style["color-scheme"] = value ? "dark" : "normal";
-      break;
-    case config.CONTENT_STORIES_SETTING:
-      overwrite.style["display"] = value ? "none" : "block";
-      break;
-    case config.CONTENT_CREATE_ROOM_SETTING:
-      overwrite.style["display"] = value ? "none" : "block";
-      break;
-    case config.LEFT_SIDEBAR_SETTING:
-      overwrite.style["opacity"] = value ? "0" : "100";
-      overwrite.style["visibility"] = value ? "hidden" : "initial";
-      break;
-    case config.LEFT_MARGIN_SETTING:
-      overwrite.style["min-width"] = value ? "0" : "280px";
-      overwrite.style["flex-basis"] = value ? "0" : "360px";
-      break;
-    case config.RIGHT_SIDEBAR_SPONSORED_SETTING:
-      overwrite.style["display"] = value ? "none" : "block";
-      break;
-    case config.RIGHT_SIDEBAR_SETTING:
-      overwrite.style["opacity"] = value ? "0" : "100";
-      overwrite.style["visibility"] = value ? "hidden" : "initial";
-      break;
-    case config.RIGHT_MARGIN_SETTING:
-      overwrite.style["min-width"] = value ? "0" : "280px";
-      overwrite.style["flex-basis"] = value ? "0" : "360px";
-      break;
-  }
-};
+import { options } from "~/extension.config";
+import { overwriteDefaultStyles } from "content/overwrite";
 
 /**
  * @returns {void}
@@ -64,14 +26,14 @@ const initializeContentScript = () => {
         overwrites[option.name] = overwrite;
 
         chrome.storage.local.get(option.name, (storage) => {
-          defineOptionValues(overwrite, option.name, storage[option.name] ? true : false);
+          overwriteDefaultStyles(overwrite, option.name, storage[option.name] ? true : false);
         });
       }
     }
 
     chrome.runtime.onMessage.addListener((message) => {
       let overwrite = overwrites[message.name];
-      defineOptionValues(overwrite, message.name, message.value ? true : false);
+      overwriteDefaultStyles(overwrite, message.name, message.value ? true : false);
     });
   });
 };

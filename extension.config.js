@@ -3,6 +3,8 @@
  *
  * @typedef {string|number} Enum
  *
+ * @typedef {string|Setting|Enum} Config
+ *
  * @typedef {Object} Section
  * @property {string} title
  * @property {Array<Option>} settings
@@ -21,34 +23,33 @@
 /**
  * Editable config that holds all the data that might once change.
  *
- * @property {string} DOCUMENT_ROOT_SELECTOR
- * @property {string} CONTENT_STORIES_SELECTOR
- * @property {string} CONTENT_CREATE_ROOM_SELECTOR
- * @property {string} LEFT_BAR_SELECTOR
- * @property {string} RIGHT_BAR_SELECTOR
- * @property {string} RIGHT_BAR_SPONSORED_SELECTOR
- *
- * @property {Setting} DARK_MODE_SETTING
- * @property {Setting} LEFT_SIDEBAR_SETTING
- * @property {Setting} LEFT_MARGIN_SETTING
- * @property {Setting} RIGHT_SIDEBAR_SPONSORED_SETTING
- * @property {Setting} RIGHT_SIDEBAR_SETTING
- * @property {Setting} RIGHT_MARGIN_SETTING
- *
- * @property {Enum} ANIMATION_CSS_RULES
+ * @type {Object.<string, Config>}
  */
 const config = {
+  // Selectors to apply CSS rules on
   DOCUMENT_ROOT_SELECTOR: ":root",
+  NEW_MESSAGE_ICON_SELECTOR: ".pmk7jnqg.lfi1tu6t.cypi58rs.tmrshh9y > .tojvnm2t.a6sixzi8.abs2jz4q.a8s20v7p.t1p8iaqh.k5wvi7nf.q3lfd5jv.pk4s997a.bipmatt0.cebpdrjk.qowsmv63.owwhemhu.dp1hu0rb.dhp61c6y.iyyx5f41",
+  TOPBAR_NOTIFICATIONS_SELECTOR: ".pmk7jnqg.h5g66v2i.nezaghv5",
+  TOPBAR_PROFILE_SELECTOR: ".bp9cbjyn.j83agx80.datstx6m.taijpn5t.oi9244e8.d74ut37n.dt6l4hlj.aferqb4h.q5xnexhs",
   CONTENT_STORIES_SELECTOR: ".d2edcug0.e3xpq0al.v8c10jal.ejjq64ki",
+  CONTENT_CREATE_POST_SELECTOR: ".kvgmc6g5.ad2k81qe.oygrvhab.f9o22wc5.oh7imozk.ox1siiyg.mz2297xg.qmfd67dx.cx39uazk.e3zsy2ct + .sjgh65i0",
   CONTENT_CREATE_ROOM_SELECTOR: ".d2edcug0.oh7imozk.abvwweq7.ejjq64ki > .sjgh65i0 + .sjgh65i0",
+  CONTENT_COMMENT_AVATAR_SELECTOR: ".ecm0bbzt.hv4rvrfc.e5nlhep0.dati1w0a.j83agx80.btwxx1t3.lzcic4wl > .nqmvxvec.s45kfl79.emlxlaya.bkmhp75w.spb7xbtv.a8c37x1j.fv0vnmcu.rs0gx3tq.l9j0dhe7",
+  CONTENT_SHARE_AVATAR_SELECTOR: ".rq0escxv.l9j0dhe7.du4w35lb.j83agx80.cbu4d94t.pfnyh3mw.d2edcug0.hpfvmrgz.n8tt0mok.hyh9befq.iuny7tx3.ipjc6fyt",
   LEFT_BAR_SELECTOR: ".rq0escxv.lpgh02oy.du4w35lb.o387gat7.qbu88020.pad24vr5.rirtxc74.dp1hu0rb.fer614ym.ni8dbmo4.stjgntxs.rek2kq2y.be9z9djy.bx45vsiw",
   RIGHT_BAR_SPONSORED_SELECTOR: ".j83agx80.cbu4d94t.buofh1pr.l9j0dhe7 .cxgpxx05 > div > span > div > div.l9j0dhe7",
   RIGHT_BAR_SELECTOR: ".rq0escxv.du4w35lb.o387gat7.qbu88020.pad24vr5.rirtxc74.dp1hu0rb.fer614ym.ni8dbmo4.stjgntxs.lpgh02oy.be9z9djy.hlyrhctz",
 
   // Settings names in the local storage
   DARK_MODE_SETTING: "darkModeEnchance",
+  NEW_MESSAGE_ICON_SETTING: "newMessageIcon",
+  TOPBAR_NOTIFICATIONS_SETTING: "topbarNotificationsHide",
+  TOPBAR_PROFILE_SETTING: "topbarProfileHide",
   CONTENT_STORIES_SETTING: "contentStoriesHide",
+  CONTENT_CREATE_POST_SETTING: "contentCreatePost",
   CONTENT_CREATE_ROOM_SETTING: "contentCreateRoom",
+  CONTENT_COMMENT_AVATAR_SETTING: "contentCommentAvatar",
+  CONTENT_SHARE_AVATAR_SETTING: "contentShareAvatar",
   LEFT_SIDEBAR_SETTING: "leftSidebarHide",
   LEFT_MARGIN_SETTING: "leftSidebarMargin",
   RIGHT_SIDEBAR_SPONSORED_SETTING: "rightSidebarSponsored",
@@ -62,7 +63,7 @@ const config = {
 /**
  * Options that are used to generate all the settings DOM and attach events to them.
  *
- * @type {Array<Option>}
+ * @type {Array<Section>}
  */
 const options = [
 	{
@@ -73,9 +74,32 @@ const options = [
 		    id: "dark-mode-enchance",
 		    name: config.DARK_MODE_SETTING,
 		    selector: config.DOCUMENT_ROOT_SELECTOR,
-		  }
+		  },
+      {
+		    label: "Hide New Message round icon",
+		    id: "new-message-icon",
+		    name: config.NEW_MESSAGE_ICON_SETTING,
+		    selector: config.NEW_MESSAGE_ICON_SELECTOR,
+		  },
 		],
 	},
+  {
+    title: "Main Topbar",
+    settings: [
+      {
+        label: "Hide navigation Social Notifications",
+        id: "topbar-notifications-hide",
+        name: config.TOPBAR_NOTIFICATIONS_SETTING,
+        selector: config.TOPBAR_NOTIFICATIONS_SELECTOR,
+      },
+      {
+        label: "Hide Profile preview",
+        id: "topbar-profile-hide",
+        name: config.TOPBAR_PROFILE_SETTING,
+        selector: config.TOPBAR_PROFILE_SELECTOR,
+      },
+    ],
+  },
 	{
 		title: "Content Section",
 		settings: [
@@ -84,14 +108,31 @@ const options = [
 		    id: "content-stories-hide",
 		    name: config.CONTENT_STORIES_SETTING,
 		    selector: config.CONTENT_STORIES_SELECTOR,
-		    rules: config.ANIMATION_CSS_RULES,
 		  },
+      {
+        label: "Hide Create Post section",
+        id: "content-create-post",
+        name: config.CONTENT_CREATE_POST_SETTING,
+        selector: config.CONTENT_CREATE_POST_SELECTOR,
+      },
 		  {
 		    label: "Hide Create Room banner",
 		    id: "content-create-room",
 		    name: config.CONTENT_CREATE_ROOM_SETTING,
 		    selector: config.CONTENT_CREATE_ROOM_SELECTOR,
 		  },
+      {
+        label: "Hide Avatar in commentable posts",
+        id: "content-avatar-comment",
+        name: config.CONTENT_COMMENT_AVATAR_SETTING,
+        selector: config.CONTENT_COMMENT_AVATAR_SELECTOR,
+      },
+      {
+        label: "Hide Avatar in shareable posts",
+        id: "content-avatar-share",
+        name: config.CONTENT_SHARE_AVATAR_SETTING,
+        selector: config.CONTENT_SHARE_AVATAR_SELECTOR,
+      },
 		],
 	},
   {

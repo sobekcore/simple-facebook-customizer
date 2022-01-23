@@ -1,7 +1,7 @@
 {
   "name": "simple-facebook-customizer",
   "description": "Customize Facebook with a set of predefined settings",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "author": "Sobek",
   "scripts": {
     "watch": "npx webpack watch --config webpack.config.js",
