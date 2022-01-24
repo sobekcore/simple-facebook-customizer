@@ -1,5 +1,8 @@
 # dependencies
 node_modules
 
-# compiled
+# compiled packages
 dist
+
+# zipped builds
+build

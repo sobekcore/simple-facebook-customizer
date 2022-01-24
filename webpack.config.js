@@ -20,7 +20,7 @@ const config = {
 
 const popup = Object.assign({}, config, {
   name: "popup",
-  entry: join(EXTENSION_ROOT, "packages/popup/popup.js"),
+  entry: join(EXTENSION_ROOT, "packages/popup/src/popup.js"),
   output: {
     path: join(EXTENSION_ROOT, "packages/popup/dist"),
     filename: "popup.js",
@@ -49,7 +49,7 @@ const popup = Object.assign({}, config, {
 
 const content = Object.assign({}, config, {
   name: "content",
-  entry: join(EXTENSION_ROOT, "packages/content/content.js"),
+  entry: join(EXTENSION_ROOT, "packages/content/src/content.js"),
   output: {
     path: join(EXTENSION_ROOT, "packages/content/dist"),
     filename: "content.js",
@@ -58,7 +58,7 @@ const content = Object.assign({}, config, {
 
 const background = Object.assign({}, config, {
   name: "background",
-  entry: join(EXTENSION_ROOT, "packages/background/background.js"),
+  entry: join(EXTENSION_ROOT, "packages/background/src/background.js"),
   output: {
     path: join(EXTENSION_ROOT, "packages/background/dist"),
     filename: "background.js",

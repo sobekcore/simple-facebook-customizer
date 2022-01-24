@@ -1,4 +1,4 @@
-import { facebookRegex } from "background/utility/constants";
+import { facebookRegex } from "background/src/utility/constants";
 
 /**
  * @returns {void}
@@ -20,4 +20,6 @@ const listenForIconAcivation = () => {
   });
 };
 
-listenForIconAcivation();
+export {
+  listenForIconAcivation
+};
