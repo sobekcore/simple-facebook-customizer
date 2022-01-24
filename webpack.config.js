@@ -1,4 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const { join } = require("path");
 
 const EXTENSION_ROOT = __dirname;
@@ -23,9 +26,23 @@ const popup = Object.assign({}, config, {
     filename: "popup.js",
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: join(EXTENSION_ROOT, "packages/popup/popup.html"),
       filename: join(EXTENSION_ROOT, "packages/popup/dist/popup.html"),
+    }),
+    new CssMinimizerPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: join(EXTENSION_ROOT, "packages/popup/assets"),
+          to: join(EXTENSION_ROOT, "packages/popup/dist/assets"),
+        },
+        {
+          from: join(EXTENSION_ROOT, "packages/popup/styles"),
+          to: join(EXTENSION_ROOT, "packages/popup/dist/styles"),
+        },
+      ],
     }),
   ],
 });

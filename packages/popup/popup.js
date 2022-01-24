@@ -1,10 +1,10 @@
 import { options } from "~/extension.config";
-import { animationFixDelay } from "popup/utility/constants";
-import { searchSettingsFromInput } from "popup/modules/search";
-import { visualizeToggles, triggerDependent } from "popup/modules/toggle";
-import { parse } from "popup/modules/dom";
+import { animationFixDelay } from "popup/src/utility/constants";
+import { searchSettingsFromInput } from "popup/src/modules/search";
+import { visualizeToggles, triggerDependent } from "popup/src/modules/toggle";
+import { parse } from "popup/src/modules/dom";
 
-import SectionComponent from "popup/components/Section";
+import SectionComponent from "popup/src/components/Section";
 
 /**
  * @returns {void}

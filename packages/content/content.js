@@ -1,5 +1,5 @@
 import { options } from "~/extension.config";
-import { overwriteDefaultStyles } from "content/overwrite";
+import { overwriteDefaultStyles } from "content/modules/overwrite";
 
 /**
  * @returns {void}

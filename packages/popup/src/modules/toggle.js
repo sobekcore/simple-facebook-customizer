@@ -1,4 +1,4 @@
-import { animationFixDelay } from "popup/utility/constants";
+import { animationFixDelay } from "popup/src/utility/constants";
 
 /**
  * @param {HTMLElement} toTriggerElement

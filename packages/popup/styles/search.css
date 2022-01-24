@@ -1,0 +1,38 @@
+.extension-search {
+  border: none;
+  outline: none;
+  font-size: 13px;
+  color: var(--primary-text-color);
+  background: var(--search-background-color);
+  border-radius: 24px;
+  padding: 10px 14px;
+  width: 100%;
+}
+
+.extension-search::placeholder {
+  opacity: 0;
+}
+
+.extension-search:not(:placeholder-shown) ~ .extension-search-placeholder,
+.extension-search:focus ~ .extension-search-placeholder {
+  display: none;
+}
+
+.extension-search-placeholder {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  margin-left: 12px;
+  column-gap: 6px;
+  cursor: text;
+}
+
+.extension-search-icon {
+  -webkit-user-drag: none;
+}
+
+.extension-search-label {
+  color: var(--placeholder-text-color);
+  cursor: text;
+}

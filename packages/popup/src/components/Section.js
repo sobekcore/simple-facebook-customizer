@@ -1,4 +1,4 @@
-import OptionComponent from "popup/components/Option";
+import OptionComponent from "popup/src/components/Option";
 
 /**
  * @param {Object} params

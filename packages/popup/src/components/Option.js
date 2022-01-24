@@ -1,4 +1,4 @@
-import ToggleComponent from "popup/components/Toggle";
+import ToggleComponent from "popup/src/components/Toggle";
 
 /**
  * @param {Object} params
