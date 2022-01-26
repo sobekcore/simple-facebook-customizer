@@ -16,6 +16,12 @@ const overwriteDefaultStyles = (overwrite, element, value = false) => {
     case config.NEW_MESSAGE_ICON_SETTING:
       overwrite.style["display"] = value ? "none" : "inherit";
       break;
+    case config.ALL_MESSAGES_ICONS_SETTING:
+      overwrite.style["display"] = value ? "none" : "block";
+      break;
+    case config.ALL_MESSAGES_WINDOWS_SETTING:
+      overwrite.style["display"] = value ? "none" : "flex";
+      break;
     case config.TOPBAR_NOTIFICATIONS_SETTING:
       overwrite.style["display"] = value ? "none" : "initial";
       break;
@@ -31,6 +37,9 @@ const overwriteDefaultStyles = (overwrite, element, value = false) => {
     case config.CONTENT_CREATE_ROOM_SETTING:
       overwrite.style["display"] = value ? "none" : "block";
       break;
+    case config.CONTENT_POST_REACTIONS_SETTING:
+      overwrite.style["display"] = value ? "none" : "flex";
+      break;
     case config.CONTENT_COMMENT_AVATAR_SETTING:
       overwrite.style["display"] = value ? "none" : "block";
       break;
@@ -38,7 +47,6 @@ const overwriteDefaultStyles = (overwrite, element, value = false) => {
       overwrite.style["display"] = value ? "none" : "flex";
       break;
     case config.LEFT_SIDEBAR_SETTING:
-      overwrite.style["opacity"] = value ? "0" : "100";
       overwrite.style["visibility"] = value ? "hidden" : "initial";
       break;
     case config.LEFT_MARGIN_SETTING:
@@ -49,7 +57,6 @@ const overwriteDefaultStyles = (overwrite, element, value = false) => {
       overwrite.style["display"] = value ? "none" : "block";
       break;
     case config.RIGHT_SIDEBAR_SETTING:
-      overwrite.style["opacity"] = value ? "0" : "100";
       overwrite.style["visibility"] = value ? "hidden" : "initial";
       break;
     case config.RIGHT_MARGIN_SETTING:

@@ -19,8 +19,7 @@ const initializeContentScript = () => {
 
     for (let section of options) {
       for (let option of section.settings) {
-        let additionalRules = option.rules ? option.rules : "";
-        stylesheet.insertRule(`${option.selector} {${additionalRules}}`);
+        stylesheet.insertRule(`${option.selector} {}`);
 
         let [ overwrite ] = stylesheet.cssRules;
         overwrites[option.name] = overwrite;
