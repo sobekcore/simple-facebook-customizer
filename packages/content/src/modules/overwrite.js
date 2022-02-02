@@ -25,6 +25,9 @@ const overwriteDefaultStyles = (overwrite, element, value = false) => {
     case config.TOPBAR_NOTIFICATIONS_SETTING:
       overwrite.style["display"] = value ? "none" : "initial";
       break;
+    case config.TOPBAR_ICONS_SETTING:
+      overwrite.style["display"] = value ? "none" : "flex";
+      break;
     case config.TOPBAR_PROFILE_SETTING:
       overwrite.style["display"] = value ? "none" : "flex";
       break;

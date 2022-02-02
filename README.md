@@ -1,5 +1,7 @@
 # ![Simple Facebook Customizer](assets/marquee-promo.png)
 
+[![Available in the Chrome Web Store](assets/services/chrome-web-store.png)](https://chrome.google.com/webstore/detail/simple-facebook-customize/lggklkfbhcbpdighlgjicacbddhjabni)
+
 Simple Facebook Customizer is an extension for Chromium-based browsers (Google Chrome, Microsoft Edge, Brave and more). It's main purpose is to change default Facebook look with any combination of the predefined settings.
 
 Hiding various bars, notifications, messages and more! Remove elements that bother you or you simply don't like the look of them.

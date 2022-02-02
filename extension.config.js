@@ -28,6 +28,7 @@ const config = {
   ALL_MESSAGES_WINDOWS_SELECTOR: ".j83agx80.poy2od1o.i09qtzwb.esma6hys.tkr6xdv7",
 
   TOPBAR_NOTIFICATIONS_SELECTOR: ".pmk7jnqg.h5g66v2i.nezaghv5",
+  TOPBAR_ICONS_SELECTOR: ".thodolrn.ojvp67qx.taijpn5t.buofh1pr.j83agx80.aovydwv3.bqdfd6uv",
   TOPBAR_PROFILE_SELECTOR: ".bp9cbjyn.j83agx80.datstx6m.taijpn5t.oi9244e8.d74ut37n.dt6l4hlj.aferqb4h.q5xnexhs",
 
   CONTENT_STORIES_SELECTOR: ".d2edcug0.e3xpq0al.v8c10jal.ejjq64ki",
@@ -49,6 +50,7 @@ const config = {
   ALL_MESSAGES_WINDOWS_SETTING: "allMessagesWindows",
 
   TOPBAR_NOTIFICATIONS_SETTING: "topbarNotificationsHide",
+  TOPBAR_ICONS_SETTIING: "topbarIconsHide",
   TOPBAR_PROFILE_SETTING: "topbarProfileHide",
 
   CONTENT_STORIES_SETTING: "contentStoriesHide",
@@ -72,21 +74,21 @@ const config = {
  * @type {Array<Section>}
  */
 const options = [
-	{
-		title: "General Settings",
-		settings: [
-		  {
-		    label: "Improve Dark Mode",
-		    id: "dark-mode-enchance",
-		    name: config.DARK_MODE_SETTING,
-		    selector: config.DOCUMENT_ROOT_SELECTOR,
-		  },
+  {
+    title: "General Settings",
+    settings: [
       {
-		    label: "Hide New Message round icon",
-		    id: "new-message-icon",
-		    name: config.NEW_MESSAGE_ICON_SETTING,
-		    selector: config.NEW_MESSAGE_ICON_SELECTOR,
-		  },
+        label: "Enchance Dark Mode on Facebook",
+        id: "dark-mode-enchance",
+        name: config.DARK_MODE_SETTING,
+        selector: config.DOCUMENT_ROOT_SELECTOR,
+      },
+      {
+        label: "Hide New Message round icon",
+        id: "new-message-icon",
+        name: config.NEW_MESSAGE_ICON_SETTING,
+        selector: config.NEW_MESSAGE_ICON_SELECTOR,
+      },
       {
         label: "Hide All Messages icons",
         id: "all-messages-icons",
@@ -99,16 +101,22 @@ const options = [
         name: config.ALL_MESSAGES_WINDOWS_SETTING,
         selector: config.ALL_MESSAGES_WINDOWS_SELECTOR,
       },
-		],
-	},
+    ],
+  },
   {
     title: "Main Topbar",
     settings: [
       {
-        label: "Hide navigation Social Notifications",
+        label: "Hide Navigation social notifications",
         id: "topbar-notifications-hide",
         name: config.TOPBAR_NOTIFICATIONS_SETTING,
         selector: config.TOPBAR_NOTIFICATIONS_SELECTOR,
+      },
+      {
+        label: "Hide Navigation icons",
+        id: "topbar-icons-hide",
+        name: config.TOPBAR_ICONS_SETTING,
+        selector: config.TOPBAR_ICONS_SELECTOR,
       },
       {
         label: "Hide Profile Preview",
@@ -118,27 +126,27 @@ const options = [
       },
     ],
   },
-	{
-		title: "Content Section",
-		settings: [
-		  {
-		    label: "Hide Stories Cards",
-		    id: "content-stories-hide",
-		    name: config.CONTENT_STORIES_SETTING,
-		    selector: config.CONTENT_STORIES_SELECTOR,
-		  },
+  {
+    title: "Content Section",
+    settings: [
+      {
+        label: "Hide Stories Cards",
+        id: "content-stories-hide",
+        name: config.CONTENT_STORIES_SETTING,
+        selector: config.CONTENT_STORIES_SELECTOR,
+      },
       {
         label: "Hide Create Post section",
         id: "content-create-post",
         name: config.CONTENT_CREATE_POST_SETTING,
         selector: config.CONTENT_CREATE_POST_SELECTOR,
       },
-		  {
-		    label: "Hide Create Room banner",
-		    id: "content-create-room",
-		    name: config.CONTENT_CREATE_ROOM_SETTING,
-		    selector: config.CONTENT_CREATE_ROOM_SELECTOR,
-		  },
+      {
+        label: "Hide Create Room banner",
+        id: "content-create-room",
+        name: config.CONTENT_CREATE_ROOM_SETTING,
+        selector: config.CONTENT_CREATE_ROOM_SELECTOR,
+      },
       {
         label: "Hide Post Reactions icons and counter",
         id: "content-post-reactions",
@@ -157,8 +165,8 @@ const options = [
         name: config.CONTENT_SHARE_AVATAR_SETTING,
         selector: config.CONTENT_SHARE_AVATAR_SELECTOR,
       },
-		],
-	},
+    ],
+  },
   {
     title: "Left Sidebar",
     settings: [
