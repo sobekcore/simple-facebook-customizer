@@ -1,8 +1,9 @@
-# dependencies
+# Dependencies
 node_modules
 
-# compiled packages
+# Build
 dist
-
-# zipped builds
 build
+
+# Editor
+.idea

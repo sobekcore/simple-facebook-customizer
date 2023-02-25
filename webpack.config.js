@@ -1,67 +1,86 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const { join } = require("path");
+const { resolve } = require('path');
+const { merge } = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const EXTENSION_ROOT = __dirname;
+const ROOT_DIRECTORY = __dirname;
 
 const config = {
-  mode: "production",
+  mode: 'production',
   resolve: {
     alias: {
-      "~": EXTENSION_ROOT,
-      "popup": join(EXTENSION_ROOT, "packages/popup"),
-      "content": join(EXTENSION_ROOT, "packages/content"),
-      "background": join(EXTENSION_ROOT, 'packages/background'),
+      '@shared': resolve(ROOT_DIRECTORY, './shared'),
+      '@popup': resolve(ROOT_DIRECTORY, './packages/popup/src'),
+      '@content': resolve(ROOT_DIRECTORY, './packages/content/src'),
+      '@background': resolve(ROOT_DIRECTORY, './packages/background/src'),
     },
   },
 };
 
-const popup = Object.assign({}, config, {
-  name: "popup",
-  entry: join(EXTENSION_ROOT, "packages/popup/src/popup.js"),
+const popup = merge(config, {
+  name: 'popup',
+  entry: resolve(ROOT_DIRECTORY, './packages/popup/src/popup.tsx'),
   output: {
-    path: join(EXTENSION_ROOT, "packages/popup/dist"),
-    filename: "popup.js",
+    path: resolve(ROOT_DIRECTORY, './packages/popup/dist'),
+    filename: 'popup.js',
+  },
+  resolve: {
+    extensions: ['.js', '.ts', '.tsx'],
+    alias: {
+      'react': ['./node_modules/preact/compat/'],
+      'react-dom': ['./node_modules/preact/compat/'],
+    },
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+              ['@babel/preset-typescript', { jsxPragma: 'h' }],
+            ],
+            plugins: [
+              ['@babel/plugin-transform-react-jsx', { pragma: 'h' }],
+            ],
+          },
+        },
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+    ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: join(EXTENSION_ROOT, "packages/popup/popup.html"),
-      filename: join(EXTENSION_ROOT, "packages/popup/dist/popup.html"),
-    }),
-    new CssMinimizerPlugin(),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: join(EXTENSION_ROOT, "packages/popup/assets"),
-          to: join(EXTENSION_ROOT, "packages/popup/dist/assets"),
-        },
-        {
-          from: join(EXTENSION_ROOT, "packages/popup/styles"),
-          to: join(EXTENSION_ROOT, "packages/popup/dist/styles"),
-        },
-      ],
+      template: resolve(ROOT_DIRECTORY, './packages/popup/popup.html'),
+      filename: resolve(ROOT_DIRECTORY, './packages/popup/dist/popup.html'),
     }),
   ],
 });
 
-const content = Object.assign({}, config, {
-  name: "content",
-  entry: join(EXTENSION_ROOT, "packages/content/src/content.js"),
+const content = merge(config, {
+  name: 'content',
+  entry: resolve(ROOT_DIRECTORY, './packages/content/src/content.js'),
   output: {
-    path: join(EXTENSION_ROOT, "packages/content/dist"),
-    filename: "content.js",
+    path: resolve(ROOT_DIRECTORY, './packages/content/dist'),
+    filename: 'content.js',
   },
 });
 
-const background = Object.assign({}, config, {
-  name: "background",
-  entry: join(EXTENSION_ROOT, "packages/background/src/background.js"),
+const background = merge(config, {
+  name: 'background',
+  entry: resolve(ROOT_DIRECTORY, './packages/background/src/background.js'),
   output: {
-    path: join(EXTENSION_ROOT, "packages/background/dist"),
-    filename: "background.js",
+    path: resolve(ROOT_DIRECTORY, './packages/background/dist'),
+    filename: 'background.js',
   },
 });
 

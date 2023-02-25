@@ -1,3 +1,3 @@
-import { listenForIconAcivation } from "background/src/modules/icon";
+import { listenForIconActivation } from '@background/modules/icon';
 
-listenForIconAcivation();
+listenForIconActivation();
