@@ -39,8 +39,8 @@
     outline-offset: 2px;
   }
 
-  .toggle-input[data-loading="true"] + .toggle-label,
-  .toggle-input[data-loading="true"] + .toggle-label::after {
+  .toggle-input[aria-busy="true"] + .toggle-label,
+  .toggle-input[aria-busy="true"] + .toggle-label::after {
     transition: none;
   }
 

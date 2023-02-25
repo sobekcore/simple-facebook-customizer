@@ -5,7 +5,7 @@ import '@popup/styles/search.scss';
 
 export default function Search() {
   const searchContext: SearchContextData = useContext(SearchContext);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState<string>('');
 
   const handleInput = (event: JSX.TargetedEvent<HTMLInputElement, InputEvent>): void => {
     const value: string = event.currentTarget.value;

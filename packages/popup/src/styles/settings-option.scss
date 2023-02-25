@@ -15,10 +15,30 @@
     padding: 2px 0;
 
     .settings-option-label {
-      color: var(--secondary-text-color);
+      color: var(--placeholder-text-color);
       pointer-events: none;
+      touch-action: none;
       font-weight: bold;
       font-size: 13px;
+
+      &::before {
+        content: '✘';
+        padding-right: 4px;
+      }
     }
   }
+}
+
+[data-injected="true"] .settings-option-label[data-exists="true"] {
+  color: var(--secondary-text-color);
+}
+
+[data-injected="true"] .settings-option-label[data-exists="true"]::before {
+  content: '✔';
+  color: var(--positive-color);
+}
+
+[data-injected="true"] .settings-option-label[data-exists="false"]::before {
+  content: '✘';
+  color: var(--negative-color);
 }

@@ -1,4 +1,15 @@
 import { config } from '@shared/config';
+import { MessageCode } from '@shared/message-code';
+
+/**
+ * @returns {void}
+ */
+export function checkIfStyleIsInjected() {
+  chrome.runtime.sendMessage({
+    code: MessageCode.CHECK_IF_STYLE_IS_INJECTED,
+    injected: Boolean(document.querySelector('style[data-simple-facebook-customizer]')),
+  });
+}
 
 /**
  * Overwrite page default stylesheet with a custom properties.
@@ -8,7 +19,7 @@ import { config } from '@shared/config';
  * @param {boolean} value
  * @returns {void}
  */
-export function overwriteDefaultStyles(overwrite, element, value = false) {
+export function overwriteDefaultStyles(overwrite, element, value) {
   switch (element) {
     case config.DARK_MODE_SETTING:
       overwrite.style['color-scheme'] = value ? 'dark' : 'normal';

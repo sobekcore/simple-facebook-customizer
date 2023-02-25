@@ -33,7 +33,7 @@ export default function SettingsOptionToggle(props: SettingsOptionToggleProps) {
          */
         setTimeout((): void => {
           setLoading(false);
-        }, 20);
+        }, 50);
       });
   }, []);
 
@@ -85,7 +85,7 @@ export default function SettingsOptionToggle(props: SettingsOptionToggleProps) {
     <div class="toggle">
       <input
         id={props.option.name}
-        data-loading={loading}
+        aria-busy={loading}
         checked={toggled}
         disabled={disabled}
         type="checkbox"

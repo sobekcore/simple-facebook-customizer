@@ -28,7 +28,7 @@ export default function SettingsSection(props: SettingsSectionProps) {
   };
 
   return (
-    <section class="settings-section" style={{ display: display() ? 'initial' : 'none' }}>
+    <section class="settings-section" aria-hidden={!display()}>
       <h2 class="settings-section-title">
         {props.section.title}
       </h2>
