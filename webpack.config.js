@@ -68,19 +68,59 @@ const popup = merge(config, {
 
 const content = merge(config, {
   name: 'content',
-  entry: resolve(ROOT_DIRECTORY, './packages/content/src/content.js'),
+  entry: resolve(ROOT_DIRECTORY, './packages/content/src/content.ts'),
   output: {
     path: resolve(ROOT_DIRECTORY, './packages/content/dist'),
     filename: 'content.js',
+  },
+  resolve: {
+    extensions: ['.js', '.ts'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-typescript',
+            ],
+          },
+        },
+      },
+    ],
   },
 });
 
 const background = merge(config, {
   name: 'background',
-  entry: resolve(ROOT_DIRECTORY, './packages/background/src/background.js'),
+  entry: resolve(ROOT_DIRECTORY, './packages/background/src/background.ts'),
   output: {
     path: resolve(ROOT_DIRECTORY, './packages/background/dist'),
     filename: 'background.js',
+  },
+  resolve: {
+    extensions: ['.js', '.ts'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-typescript',
+            ],
+          },
+        },
+      },
+    ],
   },
 });
 

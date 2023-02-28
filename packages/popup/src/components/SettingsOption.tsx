@@ -1,10 +1,10 @@
 import { h } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
-import { MessageCode } from '@shared/message-code';
-import { Section } from '@popup/interfaces/section';
-import { Option } from '@popup/interfaces/option';
+import { MessageCode } from '@shared/enums/message-code';
+import { Section } from '@shared/interfaces/section';
+import { Option } from '@shared/interfaces/option';
 import { SearchContextData, SearchContext } from '@popup/providers/SearchProvider';
-import { UseChromeTabsReturn, useChromeTabs } from '@popup/hooks/useChromeTabs';
+import { UseChromeTabsReturn, useChromeTabs } from '@shared/hooks/useChromeTabs';
 import SettingsOptionToggle from '@popup/components/SettingsOptionToggle';
 import '@popup/styles/settings-option.scss';
 
@@ -25,14 +25,14 @@ export default function SettingsOption(props: SettingsOptionProps) {
         return;
       }
 
-      if (message.name === props.option.name && !message.exists) {
+      if (message.option.name === props.option.name && !message.exists) {
         setExists(false);
       }
     });
 
     tabs.sendMessage({
       code: MessageCode.CHECK_IF_ELEMENT_EXISTS,
-      name: props.option.name,
+      option: props.option,
     }, true);
   }, []);
 

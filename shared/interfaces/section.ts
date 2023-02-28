@@ -1,4 +1,4 @@
-import { Option } from '@popup/interfaces/option';
+import { Option } from '@shared/interfaces/option';
 
 export interface Section {
   title: string;

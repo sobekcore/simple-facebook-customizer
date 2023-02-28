@@ -8,6 +8,7 @@
     "postbuild": "node scripts/postbuild.js"
   },
   "dependencies": {
+    "@sanity/client": "^5.2.2",
     "archiver": "^5.3.1",
     "preact": "^10.12.1"
   },

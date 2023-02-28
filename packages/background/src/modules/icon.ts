@@ -1,12 +1,9 @@
 import { FACEBOOK_REGEX } from '@shared/const';
 
-/**
- * @returns {void}
- */
-export function listenForIconActivation() {
-  chrome.tabs.onUpdated.addListener((tabId, change, tab) => {
+export function listenForIconActivation(): void {
+  chrome.tabs.onUpdated.addListener((tabId: number, change: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab): void => {
     if (tab.url.match(FACEBOOK_REGEX)) {
-      const icons = {
+      const icons: Record<string, string> = {
         '16': '/icons/16.png',
         '32': '/icons/32.png',
         '48': '/icons/48.png',

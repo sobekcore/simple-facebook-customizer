@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@shared/*": ["./shared/*"],
+      "@popup/*": ["./packages/popup/src/*"],
+      "@content/*": ["./packages/content/src/*"],
+      "@background/*": ["./packages/background/src/*"]
+    }
+  }
+}

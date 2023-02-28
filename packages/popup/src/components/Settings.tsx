@@ -1,8 +1,8 @@
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
-import { MessageCode } from '@shared/message-code';
-import { Section } from '@popup/interfaces/section';
-import { UseChromeTabsReturn, useChromeTabs } from '@popup/hooks/useChromeTabs';
+import { MessageCode } from '@shared/enums/message-code';
+import { Section } from '@shared/interfaces/section';
+import { UseChromeTabsReturn, useChromeTabs } from '@shared/hooks/useChromeTabs';
 import SettingsProvider from '@popup/providers/SettingsProvider';
 import SettingsMessage from '@popup/components/SettingsMessage';
 import SettingsSection from '@popup/components/SettingsSection';
@@ -17,6 +17,9 @@ export default function Settings(props: SettingsProps) {
   const [injected, setInjected] = useState<boolean | null>(null);
 
   useEffect((): void => {
+    /**
+     * TODO: Create wrapper hook to add Chrome listeners with a simpler interface
+     */
     chrome.runtime.onMessage.addListener((message): void => {
       if (message.code !== MessageCode.CHECK_IF_STYLE_IS_INJECTED) {
         return;

@@ -1,9 +1,10 @@
 import { h } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
-import { Option } from '@popup/interfaces/option';
+import { MessageCode } from '@shared/enums/message-code';
+import { Option } from '@shared/interfaces/option';
 import { SettingsContextData, SettingsContext } from '@popup/providers/SettingsProvider';
-import { UseChromeStorageReturn, useChromeStorage } from '@popup/hooks/useChromeStorage';
-import { UseChromeTabsReturn, useChromeTabs } from '@popup/hooks/useChromeTabs';
+import { UseChromeStorageReturn, useChromeStorage } from '@shared/hooks/useChromeStorage';
+import { UseChromeTabsReturn, useChromeTabs } from '@shared/hooks/useChromeTabs';
 import '@popup/styles/settings-option-toggle.scss';
 
 interface SettingsOptionToggleProps {
@@ -42,7 +43,7 @@ export default function SettingsOptionToggle(props: SettingsOptionToggleProps) {
       return;
     }
 
-    if (!settingsContext.enabled.includes(props.option.depends)) {
+    if (!settingsContext.enabled.includes(props.option.depends.name)) {
       if (toggled) {
         handleChange();
       }
@@ -75,7 +76,8 @@ export default function SettingsOptionToggle(props: SettingsOptionToggleProps) {
         updateInContext(value);
 
         tabs.sendMessage({
-          name: props.option.name,
+          code: MessageCode.TOGGLE_OPTION,
+          option: props.option,
           value: value,
         });
       });

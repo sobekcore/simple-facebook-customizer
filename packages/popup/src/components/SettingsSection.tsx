@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useContext } from 'preact/hooks';
-import { Section } from '@popup/interfaces/section';
-import { Option } from '@popup/interfaces/option';
+import { Section } from '@shared/interfaces/section';
+import { Option } from '@shared/interfaces/option';
 import { SearchContextData, SearchContext } from '@popup/providers/SearchProvider';
 import SettingsOption from '@popup/components/SettingsOption';
 import '@popup/styles/settings-section.scss';
