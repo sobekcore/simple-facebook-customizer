@@ -1,22 +1,22 @@
 #!/usr/bin/env node
 
 const { EOL } = require('os');
-const { join } = require('path');
+const { resolve } = require('path');
 const { createWriteStream, existsSync, mkdirSync, readFileSync } = require('fs');
 const archiver = require('archiver');
 
-const EXTENSION_ROOT = process.cwd();
+const ROOT_DIRECTORY = process.cwd();
 const DIRECTORY = 'directory';
 const FILE = 'file';
 
 const manifest = JSON.parse(readFileSync('manifest.json', 'utf-8'));
-const buildDirectory = join(EXTENSION_ROOT, 'build');
+const buildDirectory = resolve(ROOT_DIRECTORY, 'build');
 
 if (!existsSync(buildDirectory)) {
   mkdirSync(buildDirectory);
 }
 
-const targetZipFile = join(EXTENSION_ROOT, `build/${manifest.version}.zip`);
+const targetZipFile = resolve(ROOT_DIRECTORY, `build/${manifest.version}.zip`);
 const output = createWriteStream(targetZipFile);
 const archive = archiver('zip');
 
@@ -61,17 +61,22 @@ try {
       continue;
     }
 
-    archive.file(file.path, { name: file.path });
+    archive.file(file.path, {
+      name: file.path,
+    });
   }
 
-  const now = new Date();
+  const date = new Date();
 
   const buildInformation = [
-    now.toUTCString(),
+    date.toUTCString(),
     `Version: ${manifest.version}`,
   ];
 
-  archive.append(buildInformation.join(EOL), { name: '.build' });
+  archive.append(buildInformation.join(EOL), {
+    name: '.build',
+  });
+
   archive.finalize();
 } catch (error) {
   console.error(error);

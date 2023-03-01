@@ -6,7 +6,9 @@ export default `{
       name,
       selector,
       style,
-      depends->
+      depends-> {
+        name
+      }
     }
   }
 }`;

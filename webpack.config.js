@@ -1,5 +1,7 @@
 const { resolve } = require('path');
 const { merge } = require('webpack-merge');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const ROOT_DIRECTORY = __dirname;
@@ -13,6 +15,18 @@ const config = {
       '@content': resolve(ROOT_DIRECTORY, './packages/content/src'),
       '@background': resolve(ROOT_DIRECTORY, './packages/background/src'),
     },
+  },
+  optimization: {
+    minimizer: [
+      new TerserWebpackPlugin({
+        extractComments: false,
+        terserOptions: {
+          format: {
+            comments: false,
+          },
+        },
+      }),
+    ],
   },
 };
 
@@ -59,6 +73,7 @@ const popup = merge(config, {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: resolve(ROOT_DIRECTORY, './packages/popup/popup.html'),
       filename: resolve(ROOT_DIRECTORY, './packages/popup/dist/popup.html'),
@@ -93,6 +108,9 @@ const content = merge(config, {
       },
     ],
   },
+  plugins: [
+    new CleanWebpackPlugin(),
+  ],
 });
 
 const background = merge(config, {
@@ -122,6 +140,9 @@ const background = merge(config, {
       },
     ],
   },
+  plugins: [
+    new CleanWebpackPlugin(),
+  ],
 });
 
 module.exports = [popup, content, background];

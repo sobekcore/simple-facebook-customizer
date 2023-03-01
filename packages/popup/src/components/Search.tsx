@@ -19,6 +19,7 @@ export default function Search() {
       <input
         id="search"
         value={search}
+        autoComplete="off"
         placeholder="Type to search settings"
         class="search-input"
         onInput={handleInput}

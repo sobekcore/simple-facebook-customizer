@@ -1,10 +1,21 @@
 import { MessageCode } from '@shared/enums/message-code';
-import { Section } from '@shared/interfaces/section';
 import { MessageData } from '@shared/interfaces/message-data';
+import { Section } from '@shared/interfaces/section';
+import { UseChromeRuntimeReturn, useChromeRuntime } from '@shared/hooks/useChromeRuntime';
 import { UseChromeStorageReturn, useChromeStorage } from '@shared/hooks/useChromeStorage';
-import { overwriteDefaultStyles } from '@content/modules/style';
+import { overwriteDefaultStyle } from '@content/modules/style-overwrite';
 
-export function initializeContentScript(settings: Section[]): void {
+export function checkIfStyleIsInjected(): void {
+  const runtime: UseChromeRuntimeReturn = useChromeRuntime();
+
+  runtime.sendMessage({
+    code: MessageCode.CHECK_IF_STYLE_IS_INJECTED,
+    injected: document.querySelector('style[data-simple-facebook-customizer]') instanceof HTMLElement,
+  });
+}
+
+export function injectStyleIntoDocument(settings: Section[]): void {
+  const runtime: UseChromeRuntimeReturn = useChromeRuntime();
   const storage: UseChromeStorageReturn = useChromeStorage();
 
   const frame: number = window.requestAnimationFrame((): void => {
@@ -24,18 +35,13 @@ export function initializeContentScript(settings: Section[]): void {
         storage
           .get<boolean>(option.name)
           .then((value: boolean): void => {
-            value = value ?? false;
-            overwriteDefaultStyles(stylesheet, option, value);
+            overwriteDefaultStyle(stylesheet, option, value ?? false);
           });
       }
     }
 
-    chrome.runtime.onMessage.addListener((message: MessageData): void => {
-      if (message.code !== MessageCode.TOGGLE_OPTION) {
-        return;
-      }
-
-      overwriteDefaultStyles(stylesheet, message.option, message.value);
+    runtime.addMessageListener(MessageCode.TOGGLE_OPTION, (message: MessageData): void => {
+      overwriteDefaultStyle(stylesheet, message.option, message.value);
     });
   });
 }
