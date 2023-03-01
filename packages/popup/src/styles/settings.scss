@@ -1,0 +1,23 @@
+.settings {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 350px;
+  padding: 15px;
+  row-gap: 15px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-corner {
+    background: var(--secondary-background-color);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--primary-background-color);
+  }
+}
