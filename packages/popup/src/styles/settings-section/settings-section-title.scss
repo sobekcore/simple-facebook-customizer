@@ -1,0 +1,14 @@
+.settings-section-title {
+  font-size: 17px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: var(--primary-text-color);
+  padding-bottom: 2px;
+  margin: 0;
+}
+
+.settings-section .settings-creator-input-field {
+  font-size: 17px;
+  font-weight: bold;
+  color: var(--primary-text-color);
+}

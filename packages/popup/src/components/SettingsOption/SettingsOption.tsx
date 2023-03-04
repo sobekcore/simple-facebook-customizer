@@ -3,20 +3,26 @@ import { useContext, useEffect, useState } from 'preact/hooks';
 import { MessageCode } from '@shared/enums/message-code';
 import { MessageData } from '@shared/interfaces/message-data';
 import { Section } from '@shared/interfaces/section';
+import { CustomSection } from '@shared/interfaces/custom-section';
 import { Option } from '@shared/interfaces/option';
-import { SearchContextData, SearchContext } from '@popup/providers/SearchProvider';
+import { CustomOption } from '@shared/interfaces/custom-option';
 import { UseChromeRuntimeReturn, useChromeRuntime } from '@shared/hooks/useChromeRuntime';
 import { UseChromeTabsReturn, useChromeTabs } from '@shared/hooks/useChromeTabs';
-import SettingsOptionToggle from '@popup/components/SettingsOptionToggle';
-import '@popup/styles/settings-option.scss';
+import { SearchContextData, SearchContext } from '@popup/providers/SearchProvider';
+import { UseCustomSettingsReturn, useCustomSettings } from '@popup/hooks/useCustomSettings';
+import SettingsOptionLabel from '@popup/components/SettingsOption/SettingsOptionLabel';
+import SettingsOptionToggle from '@popup/components/SettingsOption/SettingsOptionToggle';
+import '@popup/styles/settings-option/settings-option.scss';
 
 interface SettingsOptionProps {
-  section: Section;
-  option: Option;
+  section: Section | CustomSection;
+  option: Option | CustomOption;
+  optionAdded?: Function;
 }
 
 export default function SettingsOption(props: SettingsOptionProps) {
   const searchContext: SearchContextData = useContext(SearchContext);
+  const customSettings: UseCustomSettingsReturn = useCustomSettings();
   const runtime: UseChromeRuntimeReturn = useChromeRuntime();
   const tabs: UseChromeTabsReturn = useChromeTabs();
 
@@ -43,14 +49,20 @@ export default function SettingsOption(props: SettingsOptionProps) {
     return searchContext.isFound(props.option.label);
   };
 
+  const handleOptionAdded = (): void => {
+    if (props.optionAdded) {
+      props.optionAdded();
+    }
+  };
+
   return (
-    <div class="settings-option" aria-hidden={!display()}>
+    <div class="settings-option" data-exists={exists} aria-hidden={!display()}>
       <div role="separator" class="settings-option-separator"></div>
       <div class="settings-option-content">
-        <label for={props.option.name} class="settings-option-label" data-exists={exists}>
-          {props.option.label}
-        </label>
-        <SettingsOptionToggle option={props.option} />
+        <SettingsOptionLabel section={props.section} option={props.option} optionAdded={handleOptionAdded} />
+        {customSettings.isOptionToggleAvailable(props.option) && (
+          <SettingsOptionToggle option={props.option} />
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import Skeleton from '@popup/components/Skeletons/Skeleton';
 import SettingsOptionSkeleton from '@popup/components/Skeletons/SettingsOptionSkeleton';
-import '@popup/styles/settings-section.scss';
+import '@popup/styles/settings-section/settings-section.scss';
 
 interface SettingsSectionSkeletonProps {
   options: number;

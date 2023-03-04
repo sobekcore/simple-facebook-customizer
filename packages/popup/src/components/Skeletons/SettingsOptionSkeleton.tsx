@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import Skeleton from '@popup/components/Skeletons/Skeleton';
-import '@popup/styles/settings-option.scss';
+import '@popup/styles/settings-option/settings-option.scss';
 
 export default function SettingsOptionSkeleton() {
   return (

@@ -13,14 +13,6 @@
     column-gap: 15px;
     min-height: 34px;
     padding: 2px 0;
-
-    .settings-option-label {
-      color: var(--secondary-text-color);
-      pointer-events: none;
-      touch-action: none;
-      font-weight: bold;
-      font-size: 13px;
-    }
   }
 }
 
@@ -31,12 +23,12 @@
   }
 }
 
-[data-injected="true"] .settings-option-label[data-exists="true"]::before {
+[data-injected="true"] .settings-option[data-exists="true"] .settings-option-label::before {
   content: '✔';
   color: var(--positive-color);
   padding-right: 4px;
 }
 
-[data-injected="true"] .settings-option-label[data-exists="false"] {
+[data-injected="true"] .settings-option[data-exists="false"] .settings-option-label {
   color: var(--placeholder-text-color);
 }
