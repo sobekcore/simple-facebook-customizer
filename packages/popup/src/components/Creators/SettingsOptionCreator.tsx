@@ -19,11 +19,8 @@ export default function SettingsOptionCreator(props: SettingsSectionProps) {
       custom: true,
       label: '',
       name: uuid(),
-      /**
-       * TODO: Get selector and style data from user input of some kind
-       */
-      selector: 'span',
-      style: 'color: blue;',
+      selector: '',
+      style: 'display: none;',
       edit: true,
     });
 

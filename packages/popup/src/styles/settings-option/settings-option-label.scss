@@ -6,6 +6,12 @@
   touch-action: none;
 }
 
+.settings-option-creator-input {
+  display: flex;
+  column-gap: 8px;
+  width: 100%;
+}
+
 .settings-option .settings-creator-input-field {
   font-size: 13px;
   font-weight: bold;

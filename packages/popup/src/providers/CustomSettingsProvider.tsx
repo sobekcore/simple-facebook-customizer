@@ -9,6 +9,7 @@ interface CustomSettingsProviderProps {
 
 export interface CustomSettingsContextData {
   settings: CustomSection[];
+  setSettings(settings: CustomSection[]): void;
   addSection(section: CustomSection): void;
   removeSection(section: CustomSection): void;
   addOption(section: CustomSection, option: CustomOption): void;
@@ -22,6 +23,9 @@ export default function CustomSettingsProvider(props: CustomSettingsProviderProp
 
   const data: CustomSettingsContextData = {
     settings: settings,
+    setSettings: (settings: CustomSection[]): void => {
+      setSettings(settings);
+    },
     addSection: (section: CustomSection): void => {
       setSettings((previous: CustomSection[]): CustomSection[] => {
         return [section, ...previous];
@@ -38,6 +42,8 @@ export default function CustomSettingsProvider(props: CustomSettingsProviderProp
           if (element.name === section.name) {
             const options: CustomOption[] = [...element.options, option];
 
+            section.options = options;
+
             return { ...element, options };
           }
 
@@ -52,6 +58,8 @@ export default function CustomSettingsProvider(props: CustomSettingsProviderProp
             const options: CustomOption[] = element.options.filter((element: CustomOption): boolean => {
               return element.name !== option.name;
             });
+
+            section.options = options;
 
             return { ...element, options };
           }

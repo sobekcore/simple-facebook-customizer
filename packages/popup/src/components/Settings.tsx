@@ -5,7 +5,9 @@ import { MessageData } from '@shared/interfaces/message-data';
 import { Section } from '@shared/interfaces/section';
 import { CustomSection } from '@shared/interfaces/custom-section';
 import { UseChromeRuntimeReturn, useChromeRuntime } from '@shared/hooks/useChromeRuntime';
+import { UseChromeStorageReturn, useChromeStorage } from '@shared/hooks/useChromeStorage';
 import { UseChromeTabsReturn, useChromeTabs } from '@shared/hooks/useChromeTabs';
+import { CUSTOM_SETTINGS_KEY } from '@shared/const';
 import { CustomSettingsContextData, CustomSettingsContext, } from '@popup/providers/CustomSettingsProvider';
 import { UseComponentUpdateReturn, useComponentUpdate } from '@popup/hooks/useComponentUpdate';
 import SettingsProvider from '@popup/providers/SettingsProvider';
@@ -23,6 +25,7 @@ export default function Settings(props: SettingsProps) {
   const customSettingsContext: CustomSettingsContextData = useContext(CustomSettingsContext);
   const componentUpdate: UseComponentUpdateReturn = useComponentUpdate();
   const runtime: UseChromeRuntimeReturn = useChromeRuntime();
+  const storage: UseChromeStorageReturn = useChromeStorage();
   const tabs: UseChromeTabsReturn = useChromeTabs();
 
   const [injected, setInjected] = useState<boolean | null>(null);
@@ -33,6 +36,12 @@ export default function Settings(props: SettingsProps) {
         setInjected(true);
       }
     });
+
+    storage
+      .get<CustomSection[]>(CUSTOM_SETTINGS_KEY)
+      .then((customSettings: CustomSection[]): void => {
+        customSettingsContext.setSettings(customSettings ?? []);
+      });
 
     tabs.sendMessage({
       code: MessageCode.CHECK_IF_STYLE_IS_INJECTED,

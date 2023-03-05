@@ -4,6 +4,7 @@ import '@popup/styles/creators/settings-creator-input.scss';
 
 interface SettingsCreatorInputProps {
   placeholder: string;
+  value: string;
   onInput(event: JSX.TargetedEvent<HTMLInputElement, InputEvent>): void;
   onClickAccept(event: JSX.TargetedMouseEvent<HTMLButtonElement>): void;
   onClickCancel(event: JSX.TargetedMouseEvent<HTMLButtonElement>): void;
@@ -58,6 +59,7 @@ export default function SettingsCreatorInput(props: SettingsCreatorInputProps) {
         ref={input}
         type="text"
         placeholder={props.placeholder}
+        value={props.value}
         class="settings-creator-input-field"
         onInput={handleOnInput}
       />

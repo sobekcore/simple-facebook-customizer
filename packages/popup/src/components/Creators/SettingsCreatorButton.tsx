@@ -12,7 +12,7 @@ export default function SettingsCreatorButton(props: SettingsCreatorButtonProps)
   };
 
   return (
-    <button className="settings-creator-button" onClick={handleOnClick}>
+    <button class="settings-creator-button" onClick={handleOnClick}>
       {props.label}
     </button>
   );
