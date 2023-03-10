@@ -23,20 +23,20 @@ export default function CustomSettingsProvider(props: CustomSettingsProviderProp
 
   const data: CustomSettingsContextData = {
     settings: settings,
-    setSettings: (settings: CustomSection[]): void => {
+    setSettings(settings: CustomSection[]): void {
       setSettings(settings);
     },
-    addSection: (section: CustomSection): void => {
+    addSection(section: CustomSection): void {
       setSettings((previous: CustomSection[]): CustomSection[] => {
         return [section, ...previous];
       });
     },
-    removeSection: (section: CustomSection): void => {
+    removeSection(section: CustomSection): void {
       setSettings((previous: CustomSection[]): CustomSection[] => {
         return previous.filter((element: CustomSection): boolean => element.name !== section.name);
       });
     },
-    addOption: (section: CustomSection, option: CustomOption): void => {
+    addOption(section: CustomSection, option: CustomOption): void {
       setSettings((previous: CustomSection[]): CustomSection[] => {
         return previous.map((element: CustomSection): CustomSection => {
           if (element.name === section.name) {
@@ -51,7 +51,7 @@ export default function CustomSettingsProvider(props: CustomSettingsProviderProp
         });
       });
     },
-    removeOption: (section: CustomSection, option: CustomOption): void => {
+    removeOption(section: CustomSection, option: CustomOption): void {
       setSettings((previous: CustomSection[]): CustomSection[] => {
         return previous.map((element: CustomSection): CustomSection => {
           if (element.name === section.name) {

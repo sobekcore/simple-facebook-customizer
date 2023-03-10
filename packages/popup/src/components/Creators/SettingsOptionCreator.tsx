@@ -1,14 +1,15 @@
 import { h } from 'preact';
 import { useContext } from 'preact/hooks';
 import { v4 as uuid } from 'uuid';
+import { OptionState } from '@shared/enums/option-state';
 import { CustomSection } from '@shared/interfaces/custom-section';
-import { CustomSettingsContextData, CustomSettingsContext } from '@popup/providers/CustomSettingsProvider';
+import { CustomSettingsContext, CustomSettingsContextData } from '@popup/providers/CustomSettingsProvider';
 import SettingsCreatorButton from '@popup/components/Creators/SettingsCreatorButton';
 import '@popup/styles/settings-option/settings-option.scss';
 
 interface SettingsSectionProps {
   section: CustomSection;
-  optionAdded?: Function;
+  optionSaved?: Function;
 }
 
 export default function SettingsOptionCreator(props: SettingsSectionProps) {
@@ -21,11 +22,11 @@ export default function SettingsOptionCreator(props: SettingsSectionProps) {
       name: uuid(),
       selector: '',
       style: 'display: none;',
-      edit: true,
+      state: OptionState.INIT,
     });
 
-    if (props.optionAdded) {
-      props.optionAdded();
+    if (props.optionSaved) {
+      props.optionSaved();
     }
   };
 

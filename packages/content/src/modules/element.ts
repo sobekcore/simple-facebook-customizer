@@ -6,8 +6,8 @@ import { UseChromeRuntimeReturn, useChromeRuntime } from '@shared/hooks/useChrom
 import { mouseoverListenerCallback } from '@content/modules/callbacks/mouseover';
 
 interface HoverEffectElementState {
-  current: HTMLElement | null
-  previous: HTMLElement | null;
+  current: Element | null
+  previous: Element | null;
 }
 
 const hoverEffectElementState: HoverEffectElementState = {
@@ -21,7 +21,7 @@ export function checkIfElementExists(option: Option): void {
   runtime.sendMessage({
     code: MessageCode.CHECK_IF_ELEMENT_EXISTS,
     option: option,
-    exists: option.selector ? document.querySelector(option.selector) instanceof HTMLElement : false,
+    exists: option.selector ? document.querySelector(option.selector) instanceof Element : false,
   });
 }
 
@@ -31,21 +31,21 @@ export function selectElementFromDocument(section: CustomSection, option: Custom
   document.addEventListener('mouseover', mouseoverListenerCallback);
 }
 
-export function addHoverEffectIntoElement(element: HTMLElement): void {
+export function addHoverEffectIntoElement(element: Element): void {
   element.setAttribute('data-simple-facebook-customizer-hover', 'true');
 }
 
-export function removeHoverEffectFromElement(element: HTMLElement): void {
+export function removeHoverEffectFromElement(element: Element): void {
   element.removeAttribute('data-simple-facebook-customizer-hover');
 }
 
-export function removeNestedHoverEffectFromElement(element: HTMLElement): void {
+export function removeNestedHoverEffectFromElement(element: Element): void {
   hoverEffectElementState.current = element;
 
-  const current: HTMLElement | null = hoverEffectElementState.current;
-  const previous: HTMLElement | null = hoverEffectElementState.previous;
+  const current: Element | null = hoverEffectElementState.current;
+  const previous: Element | null = hoverEffectElementState.previous;
 
-  if (current !== previous && current instanceof HTMLElement && previous instanceof HTMLElement) {
+  if (current !== previous && current instanceof Element && previous instanceof Element) {
     removeHoverEffectFromElement(hoverEffectElementState.previous);
   }
 

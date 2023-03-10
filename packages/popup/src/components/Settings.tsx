@@ -1,15 +1,16 @@
 import { Fragment, h } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
 import { MessageCode } from '@shared/enums/message-code';
+import { SectionState } from '@shared/enums/section-state';
 import { MessageData } from '@shared/interfaces/message-data';
 import { Section } from '@shared/interfaces/section';
 import { CustomSection } from '@shared/interfaces/custom-section';
-import { UseChromeRuntimeReturn, useChromeRuntime } from '@shared/hooks/useChromeRuntime';
-import { UseChromeStorageReturn, useChromeStorage } from '@shared/hooks/useChromeStorage';
-import { UseChromeTabsReturn, useChromeTabs } from '@shared/hooks/useChromeTabs';
+import { useChromeRuntime, UseChromeRuntimeReturn } from '@shared/hooks/useChromeRuntime';
+import { useChromeStorage, UseChromeStorageReturn } from '@shared/hooks/useChromeStorage';
+import { useChromeTabs, UseChromeTabsReturn } from '@shared/hooks/useChromeTabs';
 import { CUSTOM_SETTINGS_KEY } from '@shared/const';
-import { CustomSettingsContextData, CustomSettingsContext, } from '@popup/providers/CustomSettingsProvider';
-import { UseComponentUpdateReturn, useComponentUpdate } from '@popup/hooks/useComponentUpdate';
+import { CustomSettingsContext, CustomSettingsContextData, } from '@popup/providers/CustomSettingsProvider';
+import { useComponentUpdate, UseComponentUpdateReturn } from '@popup/hooks/useComponentUpdate';
 import SettingsProvider from '@popup/providers/SettingsProvider';
 import SettingsMessage from '@popup/components/SettingsMessage';
 import SettingsSection from '@popup/components/SettingsSection/SettingsSection';
@@ -58,7 +59,7 @@ export default function Settings(props: SettingsProps) {
     }, 500);
   }, []);
 
-  const handleSectionAdded = (): void => {
+  const handleSettingsSaved = (): void => {
     componentUpdate.forceUpdate();
   };
 
@@ -73,11 +74,11 @@ export default function Settings(props: SettingsProps) {
                 message="Styles could not be applied into current page. Make sure your location is any Facebook URL or try to refresh the page."
               />
             )}
-            {!customSettingsContext.settings.find((section: CustomSection): boolean => section.edit) && (
+            {!customSettingsContext.settings.find((section: CustomSection): boolean => section.state === SectionState.INIT) && (
               <SettingsSectionCreator />
             )}
             {customSettingsContext.settings.map((section: CustomSection) => (
-              <SettingsSection section={section} sectionAdded={handleSectionAdded} />
+              <SettingsSection section={section} sectionSaved={handleSettingsSaved} optionSaved={handleSettingsSaved} />
             ))}
             {props.settings.map((section: Section) => (
               <SettingsSection section={section} />

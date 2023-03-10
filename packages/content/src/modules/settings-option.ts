@@ -3,7 +3,7 @@ import { CustomSection } from '@shared/interfaces/custom-section';
 import { CustomOption } from '@shared/interfaces/custom-option';
 import { UseChromeRuntimeReturn, useChromeRuntime } from '@shared/hooks/useChromeRuntime';
 
-export function saveCustomSettingsOptionFromElement(element: HTMLElement): void {
+export function saveCustomSettingsOptionFromElement(element: Element): void {
   const runtime: UseChromeRuntimeReturn = useChromeRuntime();
 
   const currentSection: CustomSection = window.simpleFacebookCustomizer.section;

@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "target": "es6",
+    "moduleResolution": "node",
     "paths": {
       "@shared/*": ["./shared/*"],
       "@popup/*": ["./packages/popup/src/*"],

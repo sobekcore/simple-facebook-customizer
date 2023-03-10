@@ -17,7 +17,7 @@ import '@popup/styles/settings-option/settings-option.scss';
 interface SettingsOptionProps {
   section: Section | CustomSection;
   option: Option | CustomOption;
-  optionAdded?: Function;
+  optionSaved?: Function;
 }
 
 export default function SettingsOption(props: SettingsOptionProps) {
@@ -39,7 +39,7 @@ export default function SettingsOption(props: SettingsOptionProps) {
       code: MessageCode.CHECK_IF_ELEMENT_EXISTS,
       option: props.option,
     }, true);
-  }, []);
+  }, customSettings.isCustomOption(props.option) ? [props.option.state] : []);
 
   const display = (): boolean => {
     if (searchContext.isFound(props.section.title)) {
@@ -49,9 +49,9 @@ export default function SettingsOption(props: SettingsOptionProps) {
     return searchContext.isFound(props.option.label);
   };
 
-  const handleOptionAdded = (): void => {
-    if (props.optionAdded) {
-      props.optionAdded();
+  const handleOptionSaved = (): void => {
+    if (props.optionSaved) {
+      props.optionSaved();
     }
   };
 
@@ -59,7 +59,7 @@ export default function SettingsOption(props: SettingsOptionProps) {
     <div class="settings-option" data-exists={exists} aria-hidden={!display()}>
       <div role="separator" class="settings-option-separator"></div>
       <div class="settings-option-content">
-        <SettingsOptionLabel section={props.section} option={props.option} optionAdded={handleOptionAdded} />
+        <SettingsOptionLabel section={props.section} option={props.option} optionSaved={handleOptionSaved} />
         {customSettings.isOptionToggleAvailable(props.option) && (
           <SettingsOptionToggle option={props.option} />
         )}

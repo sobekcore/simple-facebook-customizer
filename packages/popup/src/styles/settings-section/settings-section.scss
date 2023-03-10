@@ -7,7 +7,11 @@
 }
 
 .settings-section[data-skeleton] {
-  .settings-section-title {
-    width: 50%;
+  .settings-section-title-wrapper {
+    width: 100%;
+
+    .settings-section-title {
+      width: 50%;
+    }
   }
 }

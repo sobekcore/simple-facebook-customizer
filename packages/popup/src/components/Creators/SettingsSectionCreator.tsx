@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import { useContext } from 'preact/hooks';
 import { v4 as uuid } from 'uuid';
+import { SectionState } from '@shared/enums/section-state';
 import { SearchContextData, SearchContext } from '@popup/providers/SearchProvider';
 import { CustomSettingsContextData, CustomSettingsContext } from '@popup/providers/CustomSettingsProvider';
 import SettingsCreatorButton from '@popup/components/Creators/SettingsCreatorButton';
@@ -20,7 +21,7 @@ export default function SettingsSectionCreator() {
       title: '',
       name: uuid(),
       options: [],
-      edit: true,
+      state: SectionState.INIT,
     });
   };
 

@@ -5,7 +5,7 @@ import { clickListenerCallback } from '@content/modules/callbacks/click';
 export function mouseoverListenerCallback(event: MouseEvent): void {
   const target: EventTarget = event.target;
 
-  if (target instanceof HTMLElement) {
+  if (target instanceof Element) {
     addHoverEffectIntoElement(target);
     removeNestedHoverEffectFromElement(target);
 

@@ -9,7 +9,7 @@ export function clickListenerCallback(event: MouseEvent): void {
 
   const target: EventTarget = event.target;
 
-  if (target instanceof HTMLElement) {
+  if (target instanceof Element) {
     removeHoverEffectFromElement(target);
     removeNestedHoverEffectFromElement(target);
 

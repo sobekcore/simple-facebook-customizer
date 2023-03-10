@@ -1,9 +1,16 @@
-.settings-option-label {
-  font-size: 13px;
-  font-weight: bold;
-  color: var(--secondary-text-color);
-  pointer-events: none;
-  touch-action: none;
+.settings-option-label-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  .settings-option-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--secondary-text-color);
+    word-break: break-word;
+    pointer-events: none;
+    touch-action: none;
+  }
 }
 
 .settings-option-creator-input {

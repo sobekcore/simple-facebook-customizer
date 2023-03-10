@@ -17,9 +17,13 @@
 }
 
 .settings-option[data-skeleton] {
-  .settings-option-label {
-    font-size: 17px;
+  .settings-option-label-wrapper {
     width: 100%;
+
+    .settings-option-label {
+      font-size: 17px;
+      width: 100%;
+    }
   }
 }
 

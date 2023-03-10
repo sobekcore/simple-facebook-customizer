@@ -1,6 +1,7 @@
 import { JSX, Fragment, h } from 'preact';
 import { useContext, useState } from 'preact/hooks';
 import { MessageCode } from '@shared/enums/message-code';
+import { SectionState } from '@shared/enums/section-state';
 import { Section } from '@shared/interfaces/section';
 import { CustomSection } from '@shared/interfaces/custom-section';
 import { UseChromeRuntimeReturn, useChromeRuntime } from '@shared/hooks/useChromeRuntime';
@@ -8,10 +9,11 @@ import { CustomSettingsContextData, CustomSettingsContext } from '@popup/provide
 import { UseCustomSettingsReturn, useCustomSettings } from '@popup/hooks/useCustomSettings';
 import SettingsCreatorInput from '@popup/components/Creators/SettingsCreatorInput';
 import '@popup/styles/settings-section/settings-section-title.scss';
+import SettingsCreatorDropdown from '@popup/components/Creators/SettingsCreatorDropdown';
 
 export interface SettingsSectionTitleProps {
   section: Section | CustomSection;
-  sectionAdded?: Function;
+  sectionSaved?: Function;
 }
 
 export default function SettingsSectionTitle(props: SettingsSectionTitleProps) {
@@ -19,23 +21,53 @@ export default function SettingsSectionTitle(props: SettingsSectionTitleProps) {
   const customSettings: UseCustomSettingsReturn = useCustomSettings();
   const runtime: UseChromeRuntimeReturn = useChromeRuntime();
 
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>(props.section.title);
 
   const updateSectionTitle = (event: JSX.TargetedEvent<HTMLInputElement, InputEvent>): void => {
     setTitle(event.currentTarget.value);
   };
 
-  const acceptSectionTitle = (): void => {
-    if (!title) {
-      return;
-    }
-
+  const editSectionTitle = () => {
     if (customSettings.isCustomSection(props.section)) {
-      props.section.title = title;
-      props.section.edit = false;
+      props.section.state = SectionState.EDIT;
 
-      if (props.sectionAdded) {
-        props.sectionAdded();
+      if (props.sectionSaved) {
+        props.sectionSaved();
+      }
+
+      runtime.sendMessage({
+        code: MessageCode.SAVE_SECTION,
+        section: props.section,
+      });
+    }
+  };
+
+  const saveSectionTitle = (): void => {
+    if (customSettings.isCustomSection(props.section)) {
+      if (!title) {
+        return;
+      }
+
+      props.section.title = title;
+      props.section.state = SectionState.IDLE;
+
+      if (props.sectionSaved) {
+        props.sectionSaved();
+      }
+
+      runtime.sendMessage({
+        code: MessageCode.SAVE_SECTION,
+        section: props.section,
+      });
+    }
+  };
+
+  const rollbackSectionTitle = (): void => {
+    if (customSettings.isCustomSection(props.section)) {
+      props.section.state = SectionState.IDLE;
+
+      if (props.sectionSaved) {
+        props.sectionSaved();
       }
 
       runtime.sendMessage({
@@ -43,37 +75,56 @@ export default function SettingsSectionTitle(props: SettingsSectionTitleProps) {
         section: props.section,
       });
 
-      setTitle('');
+      setTitle(props.section.title);
     }
   };
 
-  const cancelSectionTitle = (): void => {
+  const removeSectionTitle = (): void => {
     if (customSettings.isCustomSection(props.section)) {
       customSettingsContext.removeSection(props.section);
+
+      if (props.sectionSaved) {
+        props.sectionSaved();
+      }
 
       runtime.sendMessage({
         code: MessageCode.REMOVE_SECTION,
         section: props.section,
       });
-
-      setTitle('');
     }
   };
 
   return (
     <Fragment>
-      {customSettings.isCustomSection(props.section) && props.section.edit ? (
-        <SettingsCreatorInput
-          placeholder="Your section title..."
-          value={title}
-          onInput={updateSectionTitle}
-          onClickAccept={acceptSectionTitle}
-          onClickCancel={cancelSectionTitle}
-        />
+      {customSettings.isSectionBeingEdited(props.section) ? (
+        <Fragment>
+          {props.section.state === SectionState.INIT && (
+            <SettingsCreatorInput
+              placeholder="Your section title..."
+              onInput={updateSectionTitle}
+              onClickAccept={saveSectionTitle}
+              onClickCancel={removeSectionTitle}
+            />
+          )}
+          {props.section.state === SectionState.EDIT && (
+            <SettingsCreatorInput
+              placeholder="Your section title..."
+              value={title}
+              onInput={updateSectionTitle}
+              onClickAccept={saveSectionTitle}
+              onClickCancel={rollbackSectionTitle}
+            />
+          )}
+        </Fragment>
       ) : (
-        <h2 class="settings-section-title">
-          {props.section.title}
-        </h2>
+        <div class="settings-section-title-wrapper">
+          {customSettings.isCustomSection(props.section) && (
+            <SettingsCreatorDropdown onClickEdit={editSectionTitle} onClickRemove={removeSectionTitle} />
+          )}
+          <h2 class="settings-section-title">
+            {props.section.title}
+          </h2>
+        </div>
       )}
     </Fragment>
   );

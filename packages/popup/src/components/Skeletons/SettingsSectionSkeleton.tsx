@@ -10,9 +10,11 @@ interface SettingsSectionSkeletonProps {
 export default function SettingsSectionSkeleton(props: SettingsSectionSkeletonProps) {
   return (
     <section class="settings-section" data-skeleton>
-      <h2 class="settings-section-title">
-        <Skeleton />
-      </h2>
+      <div class="settings-section-title-wrapper">
+        <h2 class="settings-section-title">
+          <Skeleton />
+        </h2>
+      </div>
       {Array.from({ length: props.options }, () => (
         <SettingsOptionSkeleton />
       ))}

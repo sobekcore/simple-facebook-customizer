@@ -7,9 +7,11 @@ export default function SettingsOptionSkeleton() {
     <div class="settings-option" data-skeleton>
       <div role="separator" class="settings-option-separator"></div>
       <div class="settings-option-content">
-        <span class="settings-option-label">
-          <Skeleton />
-        </span>
+        <div class="settings-option-label-wrapper">
+          <span class="settings-option-label">
+            <Skeleton />
+          </span>
+        </div>
       </div>
     </div>
   );

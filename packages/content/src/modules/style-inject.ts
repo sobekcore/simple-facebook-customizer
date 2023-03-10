@@ -12,7 +12,7 @@ export function checkIfStyleIsInjected(): void {
 
   runtime.sendMessage({
     code: MessageCode.CHECK_IF_STYLE_IS_INJECTED,
-    injected: document.querySelector('style[data-simple-facebook-customizer]') instanceof HTMLElement,
+    injected: document.querySelector('style[data-simple-facebook-customizer]') instanceof Element,
   });
 }
 

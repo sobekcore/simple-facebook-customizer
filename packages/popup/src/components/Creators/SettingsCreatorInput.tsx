@@ -4,7 +4,7 @@ import '@popup/styles/creators/settings-creator-input.scss';
 
 interface SettingsCreatorInputProps {
   placeholder: string;
-  value: string;
+  value?: string;
   onInput(event: JSX.TargetedEvent<HTMLInputElement, InputEvent>): void;
   onClickAccept(event: JSX.TargetedMouseEvent<HTMLButtonElement>): void;
   onClickCancel(event: JSX.TargetedMouseEvent<HTMLButtonElement>): void;

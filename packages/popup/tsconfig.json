@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "target": "es6",
+    "moduleResolution": "node",
     "jsx": "preserve",
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment",
