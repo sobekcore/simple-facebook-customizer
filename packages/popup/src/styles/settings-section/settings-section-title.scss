@@ -14,6 +14,12 @@
   }
 }
 
+.settings-section-creator-input {
+  &[data-valid="false"] .settings-creator-input-field {
+    box-shadow: inset 0 0 0 2px var(--negative-color);
+  }
+}
+
 .settings-section .settings-creator-input-field {
   font-size: 17px;
   font-weight: bold;

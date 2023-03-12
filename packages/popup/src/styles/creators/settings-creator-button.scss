@@ -2,6 +2,7 @@
   font-size: 13px;
   color: var(--secondary-text-color);
   background: none;
+  outline: none;
   border: 2px dashed var(--separator-color);
   border-radius: 4px;
   padding: 10px;
@@ -9,5 +10,9 @@
 
   &:hover {
     cursor: pointer;
+  }
+
+  &:focus-visible {
+    border: 2px solid var(--primary-text-color);
   }
 }

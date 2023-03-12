@@ -12,6 +12,7 @@ import { UseCustomSettingsReturn, useCustomSettings } from '@popup/hooks/useCust
 import SettingsCreatorInput from '@popup/components/Creators/SettingsCreatorInput';
 import SettingsCreatorDropdown from '@popup/components/Creators/SettingsCreatorDropdown';
 import SettingsOptionSelector from '@popup/components/SettingsOption/SettingsOptionSelector';
+import SettingsOptionStyle from '@popup/components/SettingsOption/SettingsOptionStyle';
 import '@popup/styles/settings-option/settings-option-label.scss';
 
 interface SettingsOptionTitleProps {
@@ -25,14 +26,22 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
   const customSettings: UseCustomSettingsReturn = useCustomSettings();
   const runtime: UseChromeRuntimeReturn = useChromeRuntime();
 
+  const [touched, setTouched] = useState<boolean>(false);
+  const [submitted, setSubmitted] = useState<boolean>(false);
   const [label, setLabel] = useState<string>(props.option.label);
 
-  const updateOptionLabel = (event: JSX.TargetedEvent<HTMLInputElement, InputEvent>): void => {
-    setLabel(event.currentTarget.value);
+  const valid = (): boolean => {
+    if (!touched) {
+      return true;
+    }
+
+    return label.length > 0;
   };
 
-  const persistOptionLabel = (): void => {
-    props.option.label = label;
+  const updateOptionLabel = (event: JSX.TargetedEvent<HTMLInputElement, InputEvent>): void => {
+    setTouched(true);
+    setLabel(event.currentTarget.value);
+    props.option.label = event.currentTarget.value;
   };
 
   const editOptionLabel = (): void => {
@@ -43,6 +52,7 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
 
       props.option.previous.label = props.option.label;
       props.option.previous.selector = props.option.selector;
+      props.option.previous.style = props.option.style;
       props.option.state = OptionState.EDIT;
 
       if (props.optionSaved) {
@@ -58,11 +68,13 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
 
   const saveOptionLabel = (): void => {
     if (customSettings.isCustomOption(props.option)) {
-      if (!label || !props.option.selector) {
+      setTouched(true);
+      setSubmitted(true);
+
+      if (!props.option.label || !props.option.selector || !props.option.style) {
         return;
       }
 
-      persistOptionLabel();
       props.option.state = OptionState.IDLE;
 
       if (props.optionSaved) {
@@ -80,6 +92,7 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
     if (customSettings.isCustomOption(props.option)) {
       props.option.label = props.option.previous.label;
       props.option.selector = props.option.previous.selector;
+      props.option.style = props.option.previous.style;
       props.option.state = OptionState.IDLE;
 
       if (props.optionSaved) {
@@ -113,7 +126,7 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
   return (
     <Fragment>
       {customSettings.isCustomSection(props.section) && customSettings.isOptionBeingEdited(props.option) ? (
-        <div class="settings-option-creator-input">
+        <div class="settings-option-creator-input" data-valid={valid()}>
           {props.option.state === OptionState.INIT && (
             <SettingsCreatorInput
               placeholder="Your option label..."
@@ -121,7 +134,17 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
               onInput={updateOptionLabel}
               onClickAccept={saveOptionLabel}
               onClickCancel={removeOptionLabel}
-            />
+            >
+              <SettingsOptionSelector
+                section={props.section}
+                option={props.option}
+                touched={submitted}
+              />
+              <SettingsOptionStyle
+                option={props.option}
+                touched={submitted}
+              />
+            </SettingsCreatorInput>
           )}
           {props.option.state === OptionState.EDIT && (
             <SettingsCreatorInput
@@ -130,13 +153,18 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
               onInput={updateOptionLabel}
               onClickAccept={saveOptionLabel}
               onClickCancel={rollbackOptionLabel}
-            />
+            >
+              <SettingsOptionSelector
+                section={props.section}
+                option={props.option}
+                touched={submitted}
+              />
+              <SettingsOptionStyle
+                option={props.option}
+                touched={submitted}
+              />
+            </SettingsCreatorInput>
           )}
-          <SettingsOptionSelector
-            section={props.section}
-            option={props.option}
-            onClick={persistOptionLabel}
-          />
         </div>
       ) : (
         <div class="settings-option-label-wrapper">

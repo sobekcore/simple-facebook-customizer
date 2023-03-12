@@ -11,8 +11,13 @@
     padding: 6px;
     cursor: pointer;
 
-    &:hover, &:focus-visible {
+    &:hover,
+    &:focus-visible {
       background: var(--search-background-color);
+    }
+
+    &:focus-visible {
+      box-shadow: inset 0 0 0 2px var(--primary-text-color);
     }
   }
 
@@ -44,8 +49,13 @@
       width: 100%;
       cursor: pointer;
 
-      &:hover, &:focus-visible {
+      &:hover,
+      &:focus-visible {
         background: var(--search-background-color);
+      }
+
+      &:focus-visible {
+        box-shadow: inset 0 0 0 2px var(--primary-text-color);
       }
     }
   }

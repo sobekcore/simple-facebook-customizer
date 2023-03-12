@@ -35,8 +35,8 @@
   }
 
   .toggle-input:focus-visible + .toggle-label {
-    outline: 2px solid var(--toggle-switch-color);
-    outline-offset: 2px;
+    outline: 2px solid var(--primary-text-color);
+    outline-offset: 0;
   }
 
   .toggle-input[aria-busy="true"] + .toggle-label,

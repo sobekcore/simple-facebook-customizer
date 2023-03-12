@@ -17,6 +17,10 @@
   display: flex;
   column-gap: 8px;
   width: 100%;
+
+  &[data-valid="false"] .settings-creator-input-field {
+    box-shadow: inset 0 0 0 2px var(--negative-color);
+  }
 }
 
 .settings-option .settings-creator-input-field {

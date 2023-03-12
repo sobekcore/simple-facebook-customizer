@@ -8,8 +8,8 @@ import { UseChromeRuntimeReturn, useChromeRuntime } from '@shared/hooks/useChrom
 import { CustomSettingsContextData, CustomSettingsContext } from '@popup/providers/CustomSettingsProvider';
 import { UseCustomSettingsReturn, useCustomSettings } from '@popup/hooks/useCustomSettings';
 import SettingsCreatorInput from '@popup/components/Creators/SettingsCreatorInput';
-import '@popup/styles/settings-section/settings-section-title.scss';
 import SettingsCreatorDropdown from '@popup/components/Creators/SettingsCreatorDropdown';
+import '@popup/styles/settings-section/settings-section-title.scss';
 
 export interface SettingsSectionTitleProps {
   section: Section | CustomSection;
@@ -21,9 +21,19 @@ export default function SettingsSectionTitle(props: SettingsSectionTitleProps) {
   const customSettings: UseCustomSettingsReturn = useCustomSettings();
   const runtime: UseChromeRuntimeReturn = useChromeRuntime();
 
+  const [touched, setTouched] = useState<boolean>(false);
   const [title, setTitle] = useState<string>(props.section.title);
 
+  const valid = (): boolean => {
+    if (!touched) {
+      return true;
+    }
+
+    return title.length > 0;
+  };
+
   const updateSectionTitle = (event: JSX.TargetedEvent<HTMLInputElement, InputEvent>): void => {
+    setTouched(true);
     setTitle(event.currentTarget.value);
   };
 
@@ -97,7 +107,7 @@ export default function SettingsSectionTitle(props: SettingsSectionTitleProps) {
   return (
     <Fragment>
       {customSettings.isSectionBeingEdited(props.section) ? (
-        <Fragment>
+        <div class="settings-section-creator-input" data-valid={valid()}>
           {props.section.state === SectionState.INIT && (
             <SettingsCreatorInput
               placeholder="Your section title..."
@@ -115,7 +125,7 @@ export default function SettingsSectionTitle(props: SettingsSectionTitleProps) {
               onClickCancel={rollbackSectionTitle}
             />
           )}
-        </Fragment>
+        </div>
       ) : (
         <div class="settings-section-title-wrapper">
           {customSettings.isCustomSection(props.section) && (

@@ -21,7 +21,7 @@ export default function SettingsOptionCreator(props: SettingsSectionProps) {
       label: '',
       name: uuid(),
       selector: '',
-      style: 'display: none;',
+      style: '',
       state: OptionState.INIT,
     });
 

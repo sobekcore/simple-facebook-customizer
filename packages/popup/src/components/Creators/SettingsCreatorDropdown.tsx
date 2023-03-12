@@ -12,23 +12,25 @@ export default function SettingsCreatorDropdown(props: SettingsCreatorDropdownPr
   const [opened, setOpened] = useState<boolean>(false);
 
   useEffect((): EffectCallback => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleDropdownClose);
+    document.addEventListener('focusin', handleDropdownClose);
 
     return (): void => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('mousedown', handleDropdownClose);
+      document.removeEventListener('focusin', handleDropdownClose);
     };
   }, []);
 
-  const handleClick = (): void => {
-    setOpened((previous: boolean): boolean => !previous);
-  };
-
-  const handleClickOutside = (event: MouseEvent): void => {
+  const handleDropdownClose = (event: Event): void => {
     const target: EventTarget = event.target;
 
     if (target instanceof Element && !wrapper.current.contains(target)) {
       setOpened(false);
     }
+  };
+
+  const handleClick = (): void => {
+    setOpened((previous: boolean): boolean => !previous);
   };
 
   const handleOnClickEdit = (event: JSX.TargetedMouseEvent<HTMLButtonElement>): void => {
