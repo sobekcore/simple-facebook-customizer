@@ -77,9 +77,11 @@ export default function Settings(props: SettingsProps) {
             {!customSettingsContext.settings.find((section: CustomSection): boolean => section.state === SectionState.INIT) && (
               <SettingsSectionCreator />
             )}
-            {customSettingsContext.settings.map((section: CustomSection) => (
-              <SettingsSection section={section} sectionSaved={handleSettingsSaved} optionSaved={handleSettingsSaved} />
-            ))}
+            <div class="settings-custom">
+              {customSettingsContext.settings.map((section: CustomSection) => (
+                <SettingsSection section={section} sectionSaved={handleSettingsSaved} optionSaved={handleSettingsSaved} />
+              ))}
+            </div>
             {props.settings.map((section: Section) => (
               <SettingsSection section={section} />
             ))}

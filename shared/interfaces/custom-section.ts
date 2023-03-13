@@ -7,4 +7,5 @@ export interface CustomSection extends Section {
   name: string;
   options: CustomOption[];
   state: SectionState;
+  previous?: Partial<CustomSection>;
 }

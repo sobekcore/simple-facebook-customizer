@@ -13,7 +13,7 @@
 
     &:hover,
     &:focus-visible {
-      background: var(--search-background-color);
+      background: var(--input-background-color);
     }
 
     &:focus-visible {
@@ -51,7 +51,7 @@
 
       &:hover,
       &:focus-visible {
-        background: var(--search-background-color);
+        background: var(--input-background-color);
       }
 
       &:focus-visible {

@@ -1,6 +1,6 @@
 import { ComponentChildren, JSX, Fragment, h } from 'preact';
 import { MutableRef, useEffect, useRef } from 'preact/hooks';
-import '@popup/styles/creators/settings-creator-input.scss';
+import '@popup/styles/creators/settings-creator-form.scss';
 
 interface SettingsCreatorInputProps {
   placeholder: string;
@@ -11,7 +11,7 @@ interface SettingsCreatorInputProps {
   onClickCancel(event: JSX.TargetedMouseEvent<HTMLButtonElement>): void;
 }
 
-export default function SettingsCreatorInput(props: SettingsCreatorInputProps) {
+export default function SettingsCreatorForm(props: SettingsCreatorInputProps) {
   const input: MutableRef<HTMLInputElement | null> = useRef(null);
   const submit: MutableRef<HTMLButtonElement | null> = useRef(null);
   const reset: MutableRef<HTMLButtonElement | null> = useRef(null);
@@ -52,7 +52,7 @@ export default function SettingsCreatorInput(props: SettingsCreatorInputProps) {
 
   return (
     <form
-      class="settings-creator-input"
+      class="settings-creator-form"
       onSubmit={handleOnSubmit}
       onReset={handleOnReset}
     >
@@ -61,17 +61,17 @@ export default function SettingsCreatorInput(props: SettingsCreatorInputProps) {
         type="text"
         value={props.value}
         placeholder={props.placeholder}
-        class="settings-creator-input-field"
+        class="settings-creator-form-field"
         onInput={handleOnInput}
       />
       {props.children && (
         <Fragment children={props.children} />
       )}
-      <div class="settings-creator-input-buttons">
+      <div class="settings-creator-form-buttons">
         <button
           ref={submit}
           type="submit"
-          class="settings-creator-input-button"
+          class="settings-creator-form-button"
           data-type="positive"
           onClick={handleOnClickAccept}
         >
@@ -80,7 +80,7 @@ export default function SettingsCreatorInput(props: SettingsCreatorInputProps) {
         <button
           ref={reset}
           type="reset"
-          class="settings-creator-input-button"
+          class="settings-creator-form-button"
           data-type="negative"
           onClick={handleOnClickCancel}
         >

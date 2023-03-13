@@ -19,7 +19,7 @@ export function saveCustomSettingsSection(customSection: CustomSection): void {
           return section.name === customSection.name ? customSection : section;
         });
       } else {
-        customSettings = [customSection, ...customSettings];
+        customSettings = [...customSettings, customSection];
       }
 
       storage.set(CUSTOM_SETTINGS_KEY, customSettings);

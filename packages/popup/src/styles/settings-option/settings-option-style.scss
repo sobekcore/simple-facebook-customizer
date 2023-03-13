@@ -1,6 +1,6 @@
 .settings-option-style-select {
   color: var(--secondary-text-color);
-  background: var(--search-background-color);
+  background: var(--input-background-color);
   appearance: none;
   outline: none;
   border: none;
@@ -8,11 +8,11 @@
   padding: 4px;
   cursor: pointer;
 
-  &:focus {
-    box-shadow: inset 0 0 0 2px var(--primary-text-color);
-  }
-
   &[data-valid="false"] {
     box-shadow: inset 0 0 0 2px var(--negative-color);
+  }
+
+  &:focus {
+    box-shadow: inset 0 0 0 2px var(--primary-text-color);
   }
 }

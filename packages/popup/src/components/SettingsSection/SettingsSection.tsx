@@ -1,6 +1,5 @@
-import { h } from 'preact';
+import { Fragment, h } from 'preact';
 import { useContext } from 'preact/hooks';
-import { SectionState } from '@shared/enums/section-state';
 import { Section } from '@shared/interfaces/section';
 import { CustomSection } from '@shared/interfaces/custom-section';
 import { Option } from '@shared/interfaces/option';
@@ -49,14 +48,18 @@ export default function SettingsSection(props: SettingsSectionProps) {
   };
 
   return (
-    <section class="settings-section" aria-hidden={!display()}>
-      <SettingsSectionTitle section={props.section} sectionSaved={handleSectionSaved} />
-      {props.section.options.map((option: Option | CustomOption) => (
-        <SettingsOption section={props.section} option={option} optionSaved={handleOptionSaved} />
-      ))}
-      {customSettings.isOptionCreatorAvailable(props.section) && (
-        <SettingsOptionCreator section={props.section} optionSaved={handleOptionSaved} />
+    <Fragment>
+      {display() && (
+        <section class="settings-section">
+          <SettingsSectionTitle section={props.section} sectionSaved={handleSectionSaved} />
+          {props.section.options.map((option: Option | CustomOption) => (
+            <SettingsOption section={props.section} option={option} optionSaved={handleOptionSaved} />
+          ))}
+          {customSettings.isOptionCreatorAvailable(props.section) && (
+            <SettingsOptionCreator section={props.section} optionSaved={handleOptionSaved} />
+          )}
+        </section>
       )}
-    </section>
+    </Fragment>
   );
 }

@@ -1,11 +1,12 @@
-.settings-creator-input {
+.settings-creator-form {
   display: flex;
   flex-direction: column;
   row-gap: 8px;
   width: 100%;
 
-  .settings-creator-input-field {
-    background: none;
+  .settings-creator-form-field {
+    color: var(--secondary-text-color);
+    background: var(--input-background-color);
     outline: none;
     border: none;
     border-radius: 4px;
@@ -17,11 +18,11 @@
     }
   }
 
-  .settings-creator-input-buttons {
+  .settings-creator-form-buttons {
     display: flex;
     column-gap: 8px;
 
-    .settings-creator-input-button {
+    .settings-creator-form-button {
       color: var(--primary-text-color);
       background: none;
       outline: none;

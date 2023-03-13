@@ -39,8 +39,6 @@ export default function SettingsOptionSelector(props: SettingsOptionSelectorProp
     if (props.onClick) {
       props.onClick();
     }
-
-    window.close();
   };
 
   return (

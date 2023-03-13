@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { Fragment, h } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
 import { MessageCode } from '@shared/enums/message-code';
 import { MessageData } from '@shared/interfaces/message-data';
@@ -56,14 +56,18 @@ export default function SettingsOption(props: SettingsOptionProps) {
   };
 
   return (
-    <div class="settings-option" data-exists={exists} aria-hidden={!display()}>
-      <div role="separator" class="settings-option-separator"></div>
-      <div class="settings-option-content">
-        <SettingsOptionLabel section={props.section} option={props.option} optionSaved={handleOptionSaved} />
-        {customSettings.isOptionToggleAvailable(props.option) && (
-          <SettingsOptionToggle option={props.option} />
-        )}
-      </div>
-    </div>
+    <Fragment>
+      {display() && (
+        <div class="settings-option" data-exists={exists}>
+          <div role="separator" class="settings-option-separator"></div>
+          <div class="settings-option-content">
+            <SettingsOptionLabel section={props.section} option={props.option} optionSaved={handleOptionSaved} />
+            {customSettings.isOptionToggleAvailable(props.option) && (
+              <SettingsOptionToggle option={props.option} />
+            )}
+          </div>
+        </div>
+      )}
+    </Fragment>
   );
 }

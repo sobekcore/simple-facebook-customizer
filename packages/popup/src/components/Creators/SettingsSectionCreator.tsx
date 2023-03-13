@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { Fragment, h } from 'preact';
 import { useContext } from 'preact/hooks';
 import { v4 as uuid } from 'uuid';
 import { SectionState } from '@shared/enums/section-state';
@@ -26,8 +26,12 @@ export default function SettingsSectionCreator() {
   };
 
   return (
-    <section class="settings-section" aria-hidden={!display()}>
-      <SettingsCreatorButton label="Add new section" onClick={addSection} />
-    </section>
+    <Fragment>
+      {display() && (
+        <section class="settings-section">
+          <SettingsCreatorButton label="Add new section" onClick={addSection} />
+        </section>
+      )}
+    </Fragment>
   );
 }

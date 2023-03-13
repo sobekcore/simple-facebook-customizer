@@ -28,7 +28,7 @@ export default function CustomSettingsProvider(props: CustomSettingsProviderProp
     },
     addSection(section: CustomSection): void {
       setSettings((previous: CustomSection[]): CustomSection[] => {
-        return [section, ...previous];
+        return [...previous, section];
       });
     },
     removeSection(section: CustomSection): void {
