@@ -18,10 +18,10 @@ export default function SearchProvider(props: SearchProviderProps) {
 
   const data: SearchContextData = {
     search: search,
-    setSearch: (value: string): void => {
+    setSearch(value: string): void {
       setSearch(value);
     },
-    isFound: (value: string): boolean => {
+    isFound(value: string): boolean {
       return value.toLowerCase().includes(search.toLowerCase());
     },
   };

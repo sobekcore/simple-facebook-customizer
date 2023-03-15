@@ -2,12 +2,14 @@ import { MessageData } from '@shared/interfaces/message-data';
 import { FACEBOOK_REGEX } from '@shared/const';
 
 export interface UseChromeTabsReturn {
-  addUpdateListener(callback: Function): void;
+  addUpdateListener(callback: UpdateListenerCallback): void;
   sendMessage(message: MessageData, active?: boolean): void;
 }
 
+type UpdateListenerCallback = (tab: chrome.tabs.Tab) => void;
+
 export function useChromeTabs(): UseChromeTabsReturn {
-  const addUpdateListener = (callback: Function): void => {
+  const addUpdateListener = (callback: UpdateListenerCallback): void => {
     chrome.tabs.onUpdated.addListener((tabId: number, change: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab): void => {
       if (tab.url.match(FACEBOOK_REGEX)) {
         callback(tab);

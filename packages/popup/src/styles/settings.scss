@@ -20,4 +20,15 @@
   &::-webkit-scrollbar-thumb {
     background: var(--primary-background-color);
   }
+
+  .settings-custom {
+    display: flex;
+    flex-direction: column-reverse;
+    row-gap: inherit;
+    width: 100%;
+
+    &:empty {
+      display: none;
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import { Option } from '@shared/interfaces/option';
+import { normalizeSelector } from '@content/modules/selector';
 
 export function overwriteDefaultStyle(stylesheet: CSSStyleSheet, option: Option, value: boolean): void {
   if (!option.style) {
@@ -11,7 +12,7 @@ export function overwriteDefaultStyle(stylesheet: CSSStyleSheet, option: Option,
   }
 
   const index: number = Array.from(stylesheet.cssRules).findIndex((rule: CSSRule): boolean => {
-    return rule instanceof CSSStyleRule && rule.selectorText === option.selector;
+    return rule instanceof CSSStyleRule && normalizeSelector(rule.selectorText) === normalizeSelector(option.selector);
   });
 
   if (index !== -1) {

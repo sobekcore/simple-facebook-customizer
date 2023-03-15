@@ -1,19 +1,18 @@
 @import '@popup/styles/variables.scss';
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
   font-family: Arial, sans-serif;
+  font-size: 13px;
 }
 
 #app {
   background: var(--secondary-background-color);
   width: 270px;
-}
-
-[aria-hidden="true"] {
-  display: none;
 }

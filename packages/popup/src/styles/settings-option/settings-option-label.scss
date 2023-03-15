@@ -1,0 +1,30 @@
+.settings-option-label-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  .settings-option-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--secondary-text-color);
+    word-break: break-word;
+    pointer-events: none;
+    touch-action: none;
+  }
+}
+
+.settings-option-creator-input {
+  display: flex;
+  column-gap: 8px;
+  width: 100%;
+
+  &[data-valid="false"] .settings-creator-form-field {
+    box-shadow: inset 0 0 0 2px var(--negative-color);
+  }
+}
+
+.settings-option .settings-creator-form-field {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--secondary-text-color);
+}

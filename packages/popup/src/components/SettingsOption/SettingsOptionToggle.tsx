@@ -5,7 +5,7 @@ import { Option } from '@shared/interfaces/option';
 import { SettingsContextData, SettingsContext } from '@popup/providers/SettingsProvider';
 import { UseChromeStorageReturn, useChromeStorage } from '@shared/hooks/useChromeStorage';
 import { UseChromeTabsReturn, useChromeTabs } from '@shared/hooks/useChromeTabs';
-import '@popup/styles/settings-option-toggle.scss';
+import '@popup/styles/settings-option/settings-option-toggle.scss';
 
 interface SettingsOptionToggleProps {
   option: Option;
