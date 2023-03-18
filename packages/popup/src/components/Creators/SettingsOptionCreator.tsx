@@ -3,7 +3,7 @@ import { useContext } from 'preact/hooks';
 import { v4 as uuid } from 'uuid';
 import { OptionState } from '@shared/enums/option-state';
 import { CustomSection } from '@shared/interfaces/custom-section';
-import { CustomSettingsContext, CustomSettingsContextData } from '@popup/providers/CustomSettingsProvider';
+import { CustomSettingsContextData, CustomSettingsContext } from '@popup/providers/CustomSettingsProvider';
 import SettingsCreatorButton from '@popup/components/Creators/SettingsCreatorButton';
 import '@popup/styles/settings-option/settings-option.scss';
 
@@ -18,6 +18,8 @@ export default function SettingsOptionCreator(props: SettingsSectionProps) {
   const addOption = (): void => {
     customSettingsContext.addOption(props.section, {
       custom: true,
+      customSelector: false,
+      customStyle: false,
       label: '',
       name: uuid(),
       selector: '',

@@ -1,5 +1,5 @@
 import { ComponentChildren, createContext, h } from 'preact';
-import { useState } from 'preact/hooks';
+import { StateUpdater, useState } from 'preact/hooks';
 
 interface SearchProviderProps {
   children: ComponentChildren;
@@ -7,7 +7,7 @@ interface SearchProviderProps {
 
 export interface SearchContextData {
   search: string;
-  setSearch(value: string): void;
+  setSearch: StateUpdater<string>;
   isFound(value: string): boolean;
 }
 
@@ -18,9 +18,7 @@ export default function SearchProvider(props: SearchProviderProps) {
 
   const data: SearchContextData = {
     search: search,
-    setSearch(value: string): void {
-      setSearch(value);
-    },
+    setSearch: setSearch,
     isFound(value: string): boolean {
       return value.toLowerCase().includes(search.toLowerCase());
     },

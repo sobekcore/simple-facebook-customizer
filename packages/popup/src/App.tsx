@@ -4,6 +4,7 @@ import { Section } from '@shared/interfaces/section';
 import { sanityClient } from '@shared/sanity';
 import settingsOrderedQuery from '@shared/queries/settings-ordered.query';
 import SearchProvider from '@popup/providers/SearchProvider';
+import SettingsProvider from '@popup/providers/SettingsProvider';
 import CustomSettingsProvider from '@popup/providers/CustomSettingsProvider';
 import Header from '@popup/components/Header';
 import Settings from '@popup/components/Settings';
@@ -22,10 +23,12 @@ export default function App() {
 
   return (
     <SearchProvider>
-      <CustomSettingsProvider>
-        <Header />
-        <Settings settings={settings} />
-      </CustomSettingsProvider>
+      <SettingsProvider>
+        <CustomSettingsProvider>
+          <Header />
+          <Settings settings={settings} />
+        </CustomSettingsProvider>
+      </SettingsProvider>
     </SearchProvider>
   );
 }

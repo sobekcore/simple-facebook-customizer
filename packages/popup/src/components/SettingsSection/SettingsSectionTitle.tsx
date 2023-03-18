@@ -5,6 +5,7 @@ import { SectionState } from '@shared/enums/section-state';
 import { Section } from '@shared/interfaces/section';
 import { CustomSection } from '@shared/interfaces/custom-section';
 import { UseChromeRuntimeReturn, useChromeRuntime } from '@shared/hooks/useChromeRuntime';
+import { UseChromeTabsReturn, useChromeTabs } from '@shared/hooks/useChromeTabs';
 import { CustomSettingsContextData, CustomSettingsContext } from '@popup/providers/CustomSettingsProvider';
 import { UseCustomSettingsReturn, useCustomSettings } from '@popup/hooks/useCustomSettings';
 import { UseSettingsCreatorReturn, useSettingsCreator } from '@popup/hooks/useSettingsCreator';
@@ -25,6 +26,7 @@ export default function SettingsSectionTitle(props: SettingsSectionTitleProps) {
   const customSettingsContext: CustomSettingsContextData = useContext(CustomSettingsContext);
   const customSettings: UseCustomSettingsReturn = useCustomSettings();
   const runtime: UseChromeRuntimeReturn = useChromeRuntime();
+  const tabs: UseChromeTabsReturn = useChromeTabs();
 
   const [touched, setTouched] = useState<boolean>(false);
   const [title, setTitle] = useState<string>(props.section.title);
@@ -95,6 +97,14 @@ export default function SettingsSectionTitle(props: SettingsSectionTitleProps) {
           code: MessageCode.REMOVE_SECTION,
           section: params.section,
         });
+
+        for (const option of params.section.options) {
+          tabs.sendMessage({
+            code: MessageCode.TOGGLE_OPTION,
+            option: option,
+            value: false,
+          });
+        }
       },
     },
   );
@@ -118,8 +128,8 @@ export default function SettingsSectionTitle(props: SettingsSectionTitleProps) {
       {customSettings.isSectionBeingEdited(props.section) ? (
         <div class="settings-section-creator-input" data-valid={valid()}>
           <SettingsCreatorForm
-            placeholder="Your section title..."
             value={title}
+            placeholder="Your section title..."
             onInput={updateSectionTitle}
             onClickAccept={settingsCreator.save}
             onClickCancel={props.section.state === SectionState.EDIT ? settingsCreator.rollback : settingsCreator.remove}

@@ -6,10 +6,13 @@ import { Section } from '@shared/interfaces/section';
 import { CustomSection } from '@shared/interfaces/custom-section';
 import { Option } from '@shared/interfaces/option';
 import { CustomOption } from '@shared/interfaces/custom-option';
-import { useChromeRuntime, UseChromeRuntimeReturn } from '@shared/hooks/useChromeRuntime';
-import { CustomSettingsContext, CustomSettingsContextData } from '@popup/providers/CustomSettingsProvider';
-import { useCustomSettings, UseCustomSettingsReturn } from '@popup/hooks/useCustomSettings';
-import { useSettingsCreator, UseSettingsCreatorReturn } from '@popup/hooks/useSettingsCreator';
+import { UseChromeRuntimeReturn, useChromeRuntime } from '@shared/hooks/useChromeRuntime';
+import { UseChromeStorageReturn, useChromeStorage } from '@shared/hooks/useChromeStorage';
+import { UseChromeTabsReturn, useChromeTabs } from '@shared/hooks/useChromeTabs';
+import { SettingsContextData, SettingsContext } from '@popup/providers/SettingsProvider';
+import { CustomSettingsContextData, CustomSettingsContext } from '@popup/providers/CustomSettingsProvider';
+import { UseCustomSettingsReturn, useCustomSettings } from '@popup/hooks/useCustomSettings';
+import { UseSettingsCreatorReturn, useSettingsCreator } from '@popup/hooks/useSettingsCreator';
 import SettingsCreatorForm from '@popup/components/Creators/SettingsCreatorForm';
 import SettingsCreatorDropdown from '@popup/components/Creators/SettingsCreatorDropdown';
 import SettingsOptionSelector from '@popup/components/SettingsOption/SettingsOptionSelector';
@@ -28,9 +31,12 @@ interface SettingsOptionTitleParams {
 }
 
 export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
+  const settingContext: SettingsContextData = useContext(SettingsContext);
   const customSettingsContext: CustomSettingsContextData = useContext(CustomSettingsContext);
   const customSettings: UseCustomSettingsReturn = useCustomSettings();
   const runtime: UseChromeRuntimeReturn = useChromeRuntime();
+  const storage: UseChromeStorageReturn = useChromeStorage();
+  const tabs: UseChromeTabsReturn = useChromeTabs();
 
   const [touched, setTouched] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -47,6 +53,8 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
           params.option.previous = {};
         }
 
+        params.option.previous.customSelector = params.option.customSelector;
+        params.option.previous.customStyle = params.option.customStyle;
         params.option.previous.label = params.option.label;
         params.option.previous.selector = params.option.selector;
         params.option.previous.style = params.option.style;
@@ -79,8 +87,26 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
           code: MessageCode.SAVE_SECTION,
           section: params.section,
         });
+
+        /**
+         * If any of the core option properties has changed we set option value to false
+         * This keeps the same behaviour as we were creating a brand-new option
+         */
+        if (customSettings.hasOptionFunctionalityChanged(params.option)) {
+          storage
+            .set<boolean>(params.option.name, false)
+            .then((): void => {
+              tabs.sendMessage({
+                code: MessageCode.TOGGLE_OPTION,
+                option: params.option.previous,
+                value: false,
+              });
+            });
+        }
       },
       rollback(params: SettingsOptionTitleParams): void {
+        params.option.customSelector = params.option.previous.customSelector;
+        params.option.customStyle = params.option.previous.customStyle;
         params.option.label = params.option.previous.label;
         params.option.selector = params.option.previous.selector;
         params.option.style = params.option.previous.style;
@@ -108,6 +134,12 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
           code: MessageCode.SAVE_SECTION,
           section: params.section,
         });
+
+        tabs.sendMessage({
+          code: MessageCode.TOGGLE_OPTION,
+          option: params.option,
+          value: false,
+        });
       },
     },
   );
@@ -127,7 +159,9 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
   };
 
   const handleOptionSelectorClick = (): void => {
-    window.close();
+    if (settingContext.injected) {
+      window.close();
+    }
   };
 
   return (
@@ -135,8 +169,8 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
       {customSettings.isCustomSection(props.section) && customSettings.isOptionBeingEdited(props.option) ? (
         <div class="settings-option-creator-input" data-valid={valid()}>
           <SettingsCreatorForm
-            placeholder="Your option label..."
             value={label}
+            placeholder="Your option label..."
             onInput={updateOptionLabel}
             onClickAccept={settingsCreator.save}
             onClickCancel={props.option.state === OptionState.EDIT ? settingsCreator.rollback : settingsCreator.remove}

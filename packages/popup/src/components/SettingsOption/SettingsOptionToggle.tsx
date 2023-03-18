@@ -45,7 +45,7 @@ export default function SettingsOptionToggle(props: SettingsOptionToggleProps) {
 
     if (!settingsContext.enabled.includes(props.option.depends.name)) {
       if (toggled) {
-        handleChange();
+        handleOnChange();
       }
 
       if (!disabled) {
@@ -66,7 +66,7 @@ export default function SettingsOptionToggle(props: SettingsOptionToggleProps) {
       : settingsContext.removeEnabled(props.option.name);
   };
 
-  const handleChange = (): void => {
+  const handleOnChange = (): void => {
     const value: boolean = !toggled;
 
     storage
@@ -93,7 +93,7 @@ export default function SettingsOptionToggle(props: SettingsOptionToggleProps) {
         type="checkbox"
         role="switch"
         class="toggle-input"
-        onChange={handleChange}
+        onChange={handleOnChange}
       />
       <label
         for={props.option.name}

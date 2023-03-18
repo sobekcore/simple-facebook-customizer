@@ -23,7 +23,7 @@ export default function SettingsCreatorDropdown(props: SettingsCreatorDropdownPr
   return (
     <div ref={popup.wrapper} class="settings-creator-dropdown-wrapper">
       <button ref={popup.trigger} class="settings-creator-dropdown-button">
-        <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
+        <svg viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="2.5"></circle>
           <circle cx="19.5" cy="12" r="2.5"></circle>
           <circle cx="4.5" cy="12" r="2.5"></circle>
