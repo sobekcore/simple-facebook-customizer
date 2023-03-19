@@ -1,5 +1,6 @@
 import { JSX, Fragment, h } from 'preact';
 import { useContext, useState } from 'preact/hooks';
+import cloneDeep from 'lodash.clonedeep';
 import { MessageCode } from '@shared/enums/message-code';
 import { OptionState } from '@shared/enums/option-state';
 import { Section } from '@shared/interfaces/section';
@@ -12,9 +13,11 @@ import { UseChromeTabsReturn, useChromeTabs } from '@shared/hooks/useChromeTabs'
 import { SettingsContextData, SettingsContext } from '@popup/providers/SettingsProvider';
 import { CustomSettingsContextData, CustomSettingsContext } from '@popup/providers/CustomSettingsProvider';
 import { UseCustomSettingsReturn, useCustomSettings } from '@popup/hooks/useCustomSettings';
+import { UseComponentUpdateReturn, useComponentUpdate } from '@popup/hooks/useComponentUpdate';
 import { UseSettingsCreatorReturn, useSettingsCreator } from '@popup/hooks/useSettingsCreator';
 import SettingsCreatorForm from '@popup/components/Creators/SettingsCreatorForm';
 import SettingsCreatorDropdown from '@popup/components/Creators/SettingsCreatorDropdown';
+import SettingsOptionSelectSimilar from '@popup/components/SettingsOption/SettingsOptionSelectSimilar';
 import SettingsOptionSelector from '@popup/components/SettingsOption/SettingsOptionSelector';
 import SettingsOptionStyle from '@popup/components/SettingsOption/SettingsOptionStyle';
 import '@popup/styles/settings-option/settings-option-label.scss';
@@ -34,6 +37,7 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
   const settingContext: SettingsContextData = useContext(SettingsContext);
   const customSettingsContext: CustomSettingsContextData = useContext(CustomSettingsContext);
   const customSettings: UseCustomSettingsReturn = useCustomSettings();
+  const componentUpdate: UseComponentUpdateReturn = useComponentUpdate();
   const runtime: UseChromeRuntimeReturn = useChromeRuntime();
   const storage: UseChromeStorageReturn = useChromeStorage();
   const tabs: UseChromeTabsReturn = useChromeTabs();
@@ -41,6 +45,10 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
   const [touched, setTouched] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [label, setLabel] = useState<string>(props.option.label);
+
+  const [initial] = useState<CustomOption | null>(
+    customSettings.isCustomOption(props.option) ? cloneDeep<CustomOption>(props.option) : null,
+  );
 
   const settingsCreator: UseSettingsCreatorReturn = useSettingsCreator<SettingsOptionTitleParams>(
     {
@@ -55,6 +63,7 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
 
         params.option.previous.customSelector = params.option.customSelector;
         params.option.previous.customStyle = params.option.customStyle;
+        params.option.previous.selectSimilar = params.option.selectSimilar;
         params.option.previous.label = params.option.label;
         params.option.previous.selector = params.option.selector;
         params.option.previous.style = params.option.style;
@@ -107,6 +116,7 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
       rollback(params: SettingsOptionTitleParams): void {
         params.option.customSelector = params.option.previous.customSelector;
         params.option.customStyle = params.option.previous.customStyle;
+        params.option.selectSimilar = params.option.previous.selectSimilar;
         params.option.label = params.option.previous.label;
         params.option.selector = params.option.previous.selector;
         params.option.style = params.option.previous.style;
@@ -164,6 +174,40 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
     }
   };
 
+  const handleOptionSelectorChange = (): void => {
+    if (customSettings.isCustomOption(props.option)) {
+      if (props.option.customSelector === initial.customSelector && props.option.selectSimilar === initial.selectSimilar) {
+        props.option.selector = initial.selector;
+      } else {
+        props.option.selector = '';
+      }
+    }
+
+    componentUpdate.forceUpdate();
+  };
+
+  const handleOptionSelectSimilarChange = (): void => {
+    if (customSettings.isCustomOption(props.option)) {
+      if (props.option.selectSimilar === initial.selectSimilar) {
+        props.option.selector = initial.selector;
+      } else {
+        props.option.selector = '';
+      }
+    }
+
+    componentUpdate.forceUpdate();
+  };
+
+  const handleOptionStyleChange = (): void => {
+    if (customSettings.isCustomOption(props.option)) {
+      if (props.option.customStyle === initial.customStyle) {
+        props.option.style = initial.style;
+      } else {
+        props.option.style = '';
+      }
+    }
+  };
+
   return (
     <Fragment>
       {customSettings.isCustomSection(props.section) && customSettings.isOptionBeingEdited(props.option) ? (
@@ -180,11 +224,12 @@ export default function SettingsOptionLabel(props: SettingsOptionTitleProps) {
               option={props.option}
               touched={submitted}
               onClick={handleOptionSelectorClick}
+              onChange={handleOptionSelectorChange}
             />
-            <SettingsOptionStyle
-              option={props.option}
-              touched={submitted}
-            />
+            {!props.option.customSelector && (
+              <SettingsOptionSelectSimilar option={props.option} onChange={handleOptionSelectSimilarChange} />
+            )}
+            <SettingsOptionStyle option={props.option} touched={submitted} onChange={handleOptionStyleChange} />
           </SettingsCreatorForm>
         </div>
       ) : (

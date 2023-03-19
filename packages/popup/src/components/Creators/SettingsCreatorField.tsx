@@ -5,7 +5,7 @@ import '@popup/styles/creators/settings-creator-field.scss';
 interface SettingsCreatorFieldProps {
   children: ComponentChildren;
   custom: boolean;
-  onChange?(custom: boolean): void;
+  onChange(custom: boolean): void;
 }
 
 export function SettingsCreatorField(props: SettingsCreatorFieldProps) {

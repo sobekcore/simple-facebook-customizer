@@ -1,6 +1,6 @@
 {
   "name": "Simple Facebook Customizer",
-  "description": "Customize Facebook with a set of predefined settings",
+  "description": "Customize Facebook any way you want",
   "manifest_version": 3,
   "version": "0.5.1",
   "permissions": ["storage", "tabs"],

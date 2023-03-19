@@ -20,6 +20,7 @@ export default function SettingsOptionCreator(props: SettingsSectionProps) {
       custom: true,
       customSelector: false,
       customStyle: false,
+      selectSimilar: false,
       label: '',
       name: uuid(),
       selector: '',

@@ -1,0 +1,59 @@
+.toggle {
+  .toggle-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
+  .toggle-label {
+    display: inline-flex;
+    position: relative;
+    width: 3em;
+    height: 1.5em;
+    color: transparent;
+    background: var(--toggle-secondary-color);
+    border-radius: 1.5em;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s ease;
+  }
+
+  .toggle-label::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1.5em;
+    height: 1.5em;
+    background: var(--toggle-switch-color);
+    background-clip: padding-box;
+    border: 0.125em solid transparent;
+    border-radius: 1.5em;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .toggle-input:focus-visible + .toggle-label {
+    outline: 2px solid var(--primary-text-color);
+    outline-offset: 0;
+  }
+
+  .toggle-input[aria-busy="true"] + .toggle-label,
+  .toggle-input[aria-busy="true"] + .toggle-label::after {
+    transition: none;
+  }
+
+  .toggle-input:checked + .toggle-label {
+    background: var(--branding-color);
+  }
+
+  .toggle-input:checked + .toggle-label::after {
+    background: var(--toggle-switch-color);
+    background-clip: padding-box;
+    transform: translateX(100%);
+  }
+
+  .toggle-input:disabled + .toggle-label {
+    filter: brightness(85%) opacity(35%);
+    cursor: not-allowed;
+  }
+}

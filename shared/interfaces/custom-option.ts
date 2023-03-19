@@ -5,6 +5,7 @@ export interface CustomOption extends Option {
   custom: true;
   customSelector: boolean;
   customStyle: boolean;
+  selectSimilar: boolean;
   state: OptionState;
   previous?: Partial<CustomOption>;
 }

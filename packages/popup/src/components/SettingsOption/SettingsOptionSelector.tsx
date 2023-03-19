@@ -13,6 +13,7 @@ interface SettingsOptionSelectorProps {
   option: CustomOption;
   touched: boolean;
   onClick?: Function;
+  onChange?: Function;
 }
 
 export default function SettingsOptionSelector(props: SettingsOptionSelectorProps) {
@@ -51,9 +52,12 @@ export default function SettingsOptionSelector(props: SettingsOptionSelectorProp
   };
 
   const handleOnChange = (custom: boolean): void => {
-    props.option.selector = '';
     props.option.customSelector = custom;
     componentUpdate.forceUpdate();
+
+    if (props.onChange) {
+      props.onChange();
+    }
   };
 
   return (

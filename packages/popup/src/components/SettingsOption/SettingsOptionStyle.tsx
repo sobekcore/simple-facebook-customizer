@@ -8,6 +8,7 @@ import '@popup/styles/settings-option/settings-option-style.scss';
 interface SettingsOptionSelectorProps {
   option: CustomOption;
   touched: boolean;
+  onChange?: Function;
 }
 
 export default function SettingsOptionStyle(props: SettingsOptionSelectorProps) {
@@ -37,9 +38,12 @@ export default function SettingsOptionStyle(props: SettingsOptionSelectorProps) 
   };
 
   const handleOnChange = (custom: boolean): void => {
-    props.option.style = '';
     props.option.customStyle = custom;
     componentUpdate.forceUpdate();
+
+    if (props.onChange) {
+      props.onChange();
+    }
   };
 
   return (
