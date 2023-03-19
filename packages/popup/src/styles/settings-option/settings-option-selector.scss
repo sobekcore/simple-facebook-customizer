@@ -6,19 +6,7 @@
   width: 100%;
 
   .settings-option-selector-input {
-    display: flex;
-    color: var(--secondary-text-color);
-    background: var(--input-background-color);
-    appearance: none;
-    border: none;
-    border-radius: 4px;
-    padding: 4px;
-    width: 100%;
     cursor: pointer;
-
-    &::placeholder {
-      color: var(--secondary-text-color);
-    }
   }
 
   &[data-valid="false"] .settings-option-selector-input {
@@ -27,5 +15,24 @@
 
   &:focus-visible .settings-option-selector-input {
     box-shadow: inset 0 0 0 2px var(--primary-text-color);
+  }
+}
+
+.settings-option-selector-input {
+  color: var(--secondary-text-color);
+  background: var(--input-background-color);
+  appearance: none;
+  outline: none;
+  border: none;
+  border-radius: inherit;
+  padding: 4px;
+  width: 100%;
+
+  &::placeholder {
+    color: var(--secondary-text-color);
+  }
+
+  &[data-valid="false"] {
+    box-shadow: inset 0 0 0 2px var(--negative-color);
   }
 }

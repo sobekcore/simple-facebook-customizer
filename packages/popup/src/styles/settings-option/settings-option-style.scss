@@ -4,8 +4,9 @@
   appearance: none;
   outline: none;
   border: none;
-  border-radius: 4px;
+  border-radius: inherit;
   padding: 4px;
+  width: 100%;
   cursor: pointer;
 
   &[data-valid="false"] {

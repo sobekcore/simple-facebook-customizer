@@ -12,6 +12,7 @@ export interface UseCustomSettingsReturn {
   isOptionBeingEdited(option: Option | CustomOption): option is CustomOption;
   isOptionCreatorAvailable(section: Section | CustomSection): section is CustomSection;
   isOptionToggleAvailable(option: Option | CustomOption): boolean;
+  hasOptionFunctionalityChanged(option: CustomOption): boolean;
 }
 
 export function useCustomSettings(): UseCustomSettingsReturn {
@@ -41,6 +42,10 @@ export function useCustomSettings(): UseCustomSettingsReturn {
     return !isCustomOption(option) || (isCustomOption(option) && !isOptionBeingEdited(option));
   };
 
+  const hasOptionFunctionalityChanged = (option: CustomOption): boolean => {
+    return option.selector !== option.previous.selector || option.style !== option.previous.style;
+  };
+
   return {
     isCustomSection,
     isCustomOption,
@@ -48,5 +53,6 @@ export function useCustomSettings(): UseCustomSettingsReturn {
     isOptionBeingEdited,
     isOptionCreatorAvailable,
     isOptionToggleAvailable,
+    hasOptionFunctionalityChanged,
   };
 }

@@ -16,3 +16,9 @@ body {
   background: var(--secondary-background-color);
   width: 270px;
 }
+
+svg {
+  fill: currentColor;
+  width: 1em;
+  height: 1em;
+}

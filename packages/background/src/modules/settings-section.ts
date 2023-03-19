@@ -22,7 +22,7 @@ export function saveCustomSettingsSection(customSection: CustomSection): void {
         customSettings = [...customSettings, customSection];
       }
 
-      storage.set(CUSTOM_SETTINGS_KEY, customSettings);
+      storage.set<CustomSection[]>(CUSTOM_SETTINGS_KEY, customSettings);
     });
 }
 
@@ -38,6 +38,6 @@ export function removeCustomSettingsSection(customSection: CustomSection): void 
         return section.name !== customSection.name;
       });
 
-      storage.set(CUSTOM_SETTINGS_KEY, customSettings);
+      storage.set<CustomSection[]>(CUSTOM_SETTINGS_KEY, customSettings);
     });
 }

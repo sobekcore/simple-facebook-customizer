@@ -1,5 +1,5 @@
 import { ComponentChildren, createContext, h } from 'preact';
-import { useState } from 'preact/hooks';
+import { StateUpdater, useState } from 'preact/hooks';
 import { CustomSection } from '@shared/interfaces/custom-section';
 import { CustomOption } from '@shared/interfaces/custom-option';
 
@@ -9,7 +9,7 @@ interface CustomSettingsProviderProps {
 
 export interface CustomSettingsContextData {
   settings: CustomSection[];
-  setSettings(settings: CustomSection[]): void;
+  setSettings: StateUpdater<CustomSection[]>;
   addSection(section: CustomSection): void;
   removeSection(section: CustomSection): void;
   addOption(section: CustomSection, option: CustomOption): void;
@@ -23,9 +23,7 @@ export default function CustomSettingsProvider(props: CustomSettingsProviderProp
 
   const data: CustomSettingsContextData = {
     settings: settings,
-    setSettings(settings: CustomSection[]): void {
-      setSettings(settings);
-    },
+    setSettings: setSettings,
     addSection(section: CustomSection): void {
       setSettings((previous: CustomSection[]): CustomSection[] => {
         return [...previous, section];

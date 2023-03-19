@@ -1,0 +1,17 @@
+.settings-creator-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1px 0;
+
+  .settings-creator-toggle-label {
+    color: var(--secondary-text-color);
+    padding: 3px 4px;
+    pointer-events: none;
+    touch-action: none;
+  }
+
+  .toggle {
+    font-size: 14px;
+  }
+}

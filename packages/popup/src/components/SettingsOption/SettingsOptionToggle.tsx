@@ -5,6 +5,7 @@ import { Option } from '@shared/interfaces/option';
 import { SettingsContextData, SettingsContext } from '@popup/providers/SettingsProvider';
 import { UseChromeStorageReturn, useChromeStorage } from '@shared/hooks/useChromeStorage';
 import { UseChromeTabsReturn, useChromeTabs } from '@shared/hooks/useChromeTabs';
+import Toggle from '@popup/components/Common/Toggle';
 import '@popup/styles/settings-option/settings-option-toggle.scss';
 
 interface SettingsOptionToggleProps {
@@ -45,7 +46,7 @@ export default function SettingsOptionToggle(props: SettingsOptionToggleProps) {
 
     if (!settingsContext.enabled.includes(props.option.depends.name)) {
       if (toggled) {
-        handleChange();
+        handleOnChange();
       }
 
       if (!disabled) {
@@ -66,7 +67,7 @@ export default function SettingsOptionToggle(props: SettingsOptionToggleProps) {
       : settingsContext.removeEnabled(props.option.name);
   };
 
-  const handleChange = (): void => {
+  const handleOnChange = (): void => {
     const value: boolean = !toggled;
 
     storage
@@ -84,23 +85,14 @@ export default function SettingsOptionToggle(props: SettingsOptionToggleProps) {
   };
 
   return (
-    <div class="toggle">
-      <input
-        id={props.option.name}
-        aria-busy={loading}
-        checked={toggled}
+    <div class="settings-option-toggle">
+      <Toggle
+        name={props.option.name}
+        value={toggled}
         disabled={disabled}
-        type="checkbox"
-        role="switch"
-        class="toggle-input"
-        onChange={handleChange}
+        loading={loading}
+        onChange={handleOnChange}
       />
-      <label
-        for={props.option.name}
-        class="toggle-label"
-      >
-        Toggle
-      </label>
     </div>
   );
 }
