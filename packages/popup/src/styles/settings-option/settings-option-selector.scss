@@ -4,9 +4,14 @@
   border: none;
   padding: 0;
   width: 100%;
+  cursor: pointer;
+  overflow: hidden;
 
   .settings-option-selector-input {
-    cursor: pointer;
+    text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   &[data-valid="false"] .settings-option-selector-input {
@@ -29,7 +34,7 @@
   width: 100%;
 
   &::placeholder {
-    color: var(--secondary-text-color);
+    color: var(--placeholder-text-color);
   }
 
   &[data-valid="false"] {

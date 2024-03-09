@@ -2,7 +2,7 @@
   "name": "Simple Facebook Customizer",
   "description": "Customize Facebook any way you want",
   "manifest_version": 3,
-  "version": "0.5.1",
+  "version": "0.5.2",
   "permissions": ["storage", "tabs"],
   "icons": {
     "16": "icons/16.png",
