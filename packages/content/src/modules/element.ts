@@ -4,6 +4,9 @@ import { Option } from '@shared/interfaces/option';
 import { CustomOption } from '@shared/interfaces/custom-option';
 import { UseChromeRuntimeReturn, useChromeRuntime } from '@shared/hooks/useChromeRuntime';
 import { mouseoverListenerCallback } from '@content/modules/callbacks/mouseover';
+import { mouseleaveListenerCallback } from '@content/modules/callbacks/mouseleave';
+import { clickListenerCallback } from '@content/modules/callbacks/click';
+import { keydownListenerCallback } from '@content/modules/callbacks/keydown';
 
 interface HoverEffectElementState {
   current: Element | null
@@ -28,7 +31,29 @@ export function checkIfElementExists(option: Option): void {
 export function selectElementFromDocument(section: CustomSection, option: CustomOption): void {
   window.simpleFacebookCustomizer.section = section;
   window.simpleFacebookCustomizer.option = option;
+
   document.addEventListener('mouseover', mouseoverListenerCallback);
+  document.addEventListener('keydown', keydownListenerCallback);
+}
+
+export function selectElementFromDocumentCleanup(element?: Element): void {
+  if (!element) {
+    element = document.querySelector('[data-simple-facebook-customizer-hover]');
+  }
+
+  if (element instanceof Element) {
+    removeHoverEffectFromElement(element);
+    removeNestedHoverEffectFromElement(element);
+
+    element.removeEventListener('mouseleave', mouseleaveListenerCallback);
+    element.removeEventListener('click', clickListenerCallback);
+  }
+
+  document.removeEventListener('mouseover', mouseoverListenerCallback);
+  document.removeEventListener('keydown', keydownListenerCallback);
+
+  delete window.simpleFacebookCustomizer.section;
+  delete window.simpleFacebookCustomizer.option;
 }
 
 export function addHoverEffectIntoElement(element: Element): void {

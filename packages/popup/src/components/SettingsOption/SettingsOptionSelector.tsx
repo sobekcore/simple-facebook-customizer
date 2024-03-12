@@ -81,13 +81,9 @@ export default function SettingsOptionSelector(props: SettingsOptionSelectorProp
           data-valid={valid()}
           onClick={handleOnClick}
         >
-          <input
-            type="text"
-            disabled={true}
-            value={props.option.selector}
-            placeholder="Click to select element..."
-            class="settings-option-selector-input"
-          />
+          <div class="settings-option-selector-input">
+            {props.option.selector ? props.option.selector : 'Click to select element...'}
+          </div>
         </button>
       )}
     </SettingsCreatorField>
